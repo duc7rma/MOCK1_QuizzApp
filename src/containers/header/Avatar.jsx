@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { EAuthToken } from 'variables';
-import { logOut } from 'services/auth-service';
-import { removeItem } from 'utils/storage-utils';
 import { RoutePaths } from 'routes/route-constants';
+import { logOut } from 'services/auth-service';
+import { EAuthToken } from 'variables';
 
 export default function MyAvatar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,15 +25,9 @@ export default function MyAvatar() {
 
   const handleLogout = async () => {
     const refresh_token = localStorage.getItem(EAuthToken.REFRESH_TOKEN);
-    console.log('refresh_token:', refresh_token);
-    const res = await logOut({ refresh_token });
+    await logOut({ refresh_token });
 
-    if (res.statusCode === 200) {
-      removeItem(EAuthToken.REFRESH_TOKEN);
-      removeItem(EAuthToken.ACCESS_TOKEN);
-
-      navigate(RoutePaths.SIGN_IN);
-    }
+    navigate(RoutePaths.SIGN_IN);
   };
 
   return (

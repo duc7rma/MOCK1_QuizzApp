@@ -10,6 +10,7 @@ const NonAuthLayout = React.lazy(() => import('layouts/NonAuthLayout'));
 const SignInPage = React.lazy(() => import('pages/non-auth/sign-in/SignInPage'));
 const HomePage = React.lazy(() => import('pages/home/HomePage'));
 const SignUpPage = React.lazy(() => import('pages/non-auth/sign-up/SignUpPage'));
+const ForgotPasswordPage = React.lazy(() => import('pages/non-auth/forgot-password/ForgotPasswordPage'));
 
 const Routes = () => {
   const accessToken = localStorage.getItem(EAuthToken.ACCESS_TOKEN);
@@ -21,7 +22,7 @@ const Routes = () => {
         <Route element={<NonAuthLayout isAuthenticated={!!accessToken} />}>
           <Route path={RoutePaths.SIGN_IN} element={<SignInPage />} />
           <Route path={RoutePaths.SIGN_UP} element={<SignUpPage />} />
-          {/* <Route path={RoutePaths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} /> */}
+          <Route path={RoutePaths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
         </Route>
 
         <Route path="/" element={<ProtectedRoute />}>

@@ -15,4 +15,21 @@
     align-items: center;
     width: 50vw;
   }
+
+  &_bottom {
+    .already-account,
+    .signin {
+      font-size: 14px;
+    }
+
+    .already-account {
+      color: red;
+    }
+
+    .signin {
+      color: blue;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
 }

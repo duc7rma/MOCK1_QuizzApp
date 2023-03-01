@@ -44,13 +44,15 @@ function SignInPage() {
         </Form.Item>
         <Form.Item className="btn-submit" wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Sign In
           </Button>
         </Form.Item>
       </Form>
 
       <div className="signIn_bottom">
-        <div className="signIn_forgot-password">Forgot password?</div>
+        <div className="signIn_forgot-password" onClick={() => navigate(RoutePaths.FORGOT_PASSWORD)}>
+          Forgot password?
+        </div>
         <div>
           <span className="signIn_not-account">Do not have an account?</span> &nbsp;
           <span className="signIn_register-now" onClick={() => navigate(RoutePaths.SIGN_UP)}>

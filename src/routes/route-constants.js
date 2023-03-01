@@ -5,5 +5,5 @@ export const RoutePaths = {
     FORGOT_PASSWORD: '/forgot-password',
 
     // Auth
-    HOME: '/home',
+    HOME: '/',
 };

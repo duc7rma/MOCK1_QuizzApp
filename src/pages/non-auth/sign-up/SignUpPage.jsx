@@ -70,11 +70,17 @@ function SignUpPage() {
               style={{ marginTop: '10px', marginBottom: '10px', width: '100px' }}
               //   loading={loading}
             >
-              Sign up
+              Sign Up
             </LoadingButton>
           </form>
         )}
       </Formik>
+      <div className="signUp_bottom">
+        <span className="already-account">Do you already have an account?</span> &nbsp;
+        <span className="signin" onClick={() => navigate(RoutePaths.SIGN_IN)}>
+          Sign in
+        </span>
+      </div>
     </div>
   );
 }

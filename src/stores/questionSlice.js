@@ -7,9 +7,10 @@ const initState = {
     loading: false,
     index: 0,
     number: 0,
+    total: 0
 }
 
-export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total) => {
+export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total, thunkAPI) => {
     const res = await fetchListQuestions(total);
     return res.data
 })
@@ -46,6 +47,7 @@ const questionSlice = createSlice({
             .addCase(fetchListQuestionsThunk.fulfilled, (state, action) => {
                 state.loading = false
                 state.questions = action.payload
+                state.total = action.payload.length
             })
     }
 })
