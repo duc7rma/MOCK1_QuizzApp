@@ -5,7 +5,7 @@ import './Questions.scss';
 function Questions() {
   return (
     <div className="question-container">
-      <h1 className="question-container_title">Questions</h1>
+      <h1 className="question-container_title">Questions Management</h1>
       <SearchQuestionsForm />
       <ResultsQuestions />
     </div>

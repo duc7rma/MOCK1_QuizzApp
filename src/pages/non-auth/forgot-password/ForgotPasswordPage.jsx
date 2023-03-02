@@ -22,7 +22,7 @@ function ForgotPasswordPage() {
 
   return (
     <div className="forgot-password">
-      <h1 className="forgot-password_title">ForgotPassword</h1>
+      <h1 className="forgot-password_title">Forgot Password</h1>
 
       <div className="forgot-password_body">
         <Formik initialValues={{ email: '' }} onSubmit={handleOnSubmit} validationSchema={validationSchema}>

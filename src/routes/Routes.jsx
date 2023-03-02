@@ -3,14 +3,20 @@ import { Routes as ReactRoutes, Route } from 'react-router-dom';
 
 import { EAuthToken } from 'variables';
 import { RoutePaths } from './route-constants';
-import PageNotFound from 'components/page-not-found/PageNotFound';
 
 import ProtectedRoute from './ProtectedRoute';
-const NonAuthLayout = React.lazy(() => import('layouts/NonAuthLayout'));
+const NonAuthLayout = React.lazy(() => import('layouts/non-auth/NonAuthLayout'));
+const AuthLayout = React.lazy(() => import('layouts/auth/AuthLayout'));
+
 const SignInPage = React.lazy(() => import('pages/non-auth/sign-in/SignInPage'));
-const HomePage = React.lazy(() => import('pages/home/HomePage'));
 const SignUpPage = React.lazy(() => import('pages/non-auth/sign-up/SignUpPage'));
 const ForgotPasswordPage = React.lazy(() => import('pages/non-auth/forgot-password/ForgotPasswordPage'));
+const AddQuesTionForm = React.lazy(() => import('containers/dashboard/questions/add/AddQuestionForm'));
+const Questions = React.lazy(() => import('containers/dashboard/questions/Questions'));
+const AnswerPage = React.lazy(() => import('containers/answer/AnswerPage'));
+const Dashboard = React.lazy(() => import('containers/dashboard/Dashboard'));
+const User = React.lazy(() => import('containers/dashboard/users/User'));
+const PageNotFound = React.lazy(() => import('components/page-not-found/PageNotFound'));
 
 const Routes = () => {
   const accessToken = localStorage.getItem(EAuthToken.ACCESS_TOKEN);
@@ -25,8 +31,19 @@ const Routes = () => {
           <Route path={RoutePaths.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
         </Route>
 
-        <Route path="/" element={<ProtectedRoute />}>
-          <Route path={RoutePaths.HOME} element={<HomePage />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route index element={<AnswerPage />} />
+
+            <Route path={RoutePaths.GO_TO_PLAY} element={<AnswerPage />} />
+            <Route path={RoutePaths.DASHBOARD} element={<Dashboard />}>
+              <Route index element={<Questions />} />
+              <Route path={RoutePaths.QUESTIONS} element={<Questions />} />
+              <Route path={RoutePaths.USER} element={<User />} />
+            </Route>
+
+            <Route path={RoutePaths.ADD_QUESTIONS} element={<AddQuesTionForm />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

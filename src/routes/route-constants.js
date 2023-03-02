@@ -6,4 +6,11 @@ export const RoutePaths = {
 
     // Auth
     HOME: '/',
+    GO_TO_PLAY: '/go-to-play',
+
+    // dashboard
+    DASHBOARD: '/dashboard/',
+    QUESTIONS: 'questions',
+    USER: 'user',
+    ADD_QUESTIONS: '/questions/add',
 };

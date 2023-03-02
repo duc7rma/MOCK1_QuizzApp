@@ -1,12 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Input, Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchAllQuestionsAdminThunk, setKeyWords, setSortField, setSortOrder } from 'stores/questionAdminSlice';
 import './SearchQuestionsForm.scss';
+import { RoutePaths } from 'routes/route-constants';
 
 function SearchQuestionsForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const pageSize = useSelector((state) => state.questionsAdmin.pageSize);
   const order = useSelector((state) => state.questionsAdmin.order);
@@ -73,7 +76,7 @@ function SearchQuestionsForm() {
         </Button>
       </Space>
 
-      <Button type="primary" onClick={handleSearch} loading={loading}>
+      <Button type="primary" onClick={() => navigate(RoutePaths.ADD_QUESTIONS)} loading={loading}>
         <PlusOutlined />
         ADD
       </Button>

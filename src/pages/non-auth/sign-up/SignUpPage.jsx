@@ -27,7 +27,7 @@ function SignUpPage() {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
           <form className="signUp_form" onSubmit={handleSubmit}>
             <TextField
-              style={{ margin: '10px 0', width: '50%' }}
+              style={{ margin: '10px 0', width: '100%' }}
               id="name"
               label="Name"
               variant="outlined"
@@ -39,7 +39,7 @@ function SignUpPage() {
 
             <TextField
               fullWidth
-              style={{ margin: '10px', width: '50%' }}
+              style={{ margin: '10px', width: '100%' }}
               id="email"
               label="Email"
               type="email"
@@ -52,7 +52,7 @@ function SignUpPage() {
 
             <TextField
               fullWidth
-              style={{ margin: '10px', width: '50%' }}
+              style={{ margin: '10px', width: '100%' }}
               label="Password"
               variant="outlined"
               type="password"

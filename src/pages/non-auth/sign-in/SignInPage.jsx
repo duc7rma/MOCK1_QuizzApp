@@ -15,10 +15,6 @@ function SignInPage() {
     navigate(RoutePaths.HOME);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
     <div className="signIn_container">
       <h2>Sign in</h2>
@@ -29,7 +25,6 @@ function SignInPage() {
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={handleSignIn}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your username!' }]}>

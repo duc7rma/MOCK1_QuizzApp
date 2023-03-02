@@ -1,0 +1,16 @@
+.tabs-header {
+  .tab {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 12px;
+    cursor: pointer;
+  }
+
+  .tab:hover {
+    color: red;
+  }
+
+  .active {
+    color: wheat;
+  }
+}

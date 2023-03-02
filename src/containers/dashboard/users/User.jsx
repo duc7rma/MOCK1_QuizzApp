@@ -1,7 +1,7 @@
 function User() {
   return (
     <div>
-      <h1>Users</h1>
+      <h1>Users Management</h1>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default function MyAvatar() {
     const refresh_token = localStorage.getItem(EAuthToken.REFRESH_TOKEN);
     await logOut({ refresh_token });
 
-    navigate(RoutePaths.SIGN_IN);
+    navigate(RoutePaths.SIGN_IN, { replace: true });
   };
 
   return (

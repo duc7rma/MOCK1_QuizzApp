@@ -2,24 +2,23 @@ import { useSelector } from 'react-redux';
 
 import TabPanel from 'components/tab-panel/TabPanel';
 import AnswerPage from 'containers/answer/AnswerPage';
-import './HomPage.scss';
-import Header from 'containers/header/Header';
 import Dashboard from 'containers/dashboard/Dashboard';
+import './HomPage.scss';
 
 export default function HomePage() {
   const tabId = useSelector((state) => state.tab);
 
   return (
     <div className="tab-container">
-      <div className="tab-header">
+      {/* <div className="tab-header">
         <Header />
-      </div>
+      </div> */}
       <div className="tab-content">
-        <TabPanel value={tabId} index={0}>
-          <Dashboard />
+        <TabPanel onClick={() => console.log('...')} value={tabId} index={0}>
+          <AnswerPage />
         </TabPanel>
         <TabPanel value={tabId} index={1}>
-          <AnswerPage />
+          <Dashboard />
         </TabPanel>
       </div>
     </div>

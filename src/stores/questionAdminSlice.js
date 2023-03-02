@@ -56,7 +56,6 @@ const questionsAdminSlice = createSlice({
                 state.loading = true
             })
             .addCase(fetchAllQuestionsAdminThunk.fulfilled, (state, action) => {
-                console.log('results: ', action.payload);
                 state.questions = action.payload.result;
                 state.total = action.payload.total
                 state.totalPages = action.payload.totalPages
