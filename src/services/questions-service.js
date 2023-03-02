@@ -15,15 +15,3 @@ export const fetchListQuestions = async (total) => {
     }
 };
 
-export const deleteQuestions = async (id) => {
-    try {
-        const res = await ApiClient.delete(`questions/${id}`);
-        showToast(res.data.message, toastType.success)
-
-        return res.data;
-    }
-    catch (error) {
-        showToast(error.message, toastType.error)
-    }
-};
-

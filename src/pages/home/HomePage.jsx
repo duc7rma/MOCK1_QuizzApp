@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import TabPanel from 'components/tab-panel/TabPanel';
-import AnswerPage from 'containers/answer/AnswerPage';
+import AnswerPage from 'src/containers/answer/GoToPlayPage';
 import Dashboard from 'containers/dashboard/Dashboard';
 import './HomPage.scss';
 

@@ -7,6 +7,7 @@ export const API_LOGOUT_URL = 'authentication/logout'
 export const API_FORGOT_PASSWORD_URL = 'authentication/forgot-password'
 export const API_FETCH_LIST_QUESTIONS_URL = 'questions/play?total='
 export const API_FETCH_ALL_QUESTIONS_ADMIN_URL = 'questions'
+export const API_UPLOAD_QUESTION_THUMBNAIL_URL = 'questions/upload-thumbnail'
 
 
 

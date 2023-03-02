@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import { fetchListQuestionsThunk } from 'stores/questionSlice';
 import ListQuestions from '../question/ListQuestions';
 
-function AnswerPage() {
+function GoToPlayPage() {
   const dispatch = useDispatch();
   const [totalQuestions, setTotalQuestions] = useState();
 
@@ -52,4 +52,4 @@ function AnswerPage() {
   );
 }
 
-export default AnswerPage;
+export default GoToPlayPage;

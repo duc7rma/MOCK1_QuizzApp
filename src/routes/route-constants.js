@@ -10,7 +10,7 @@ export const RoutePaths = {
 
     // dashboard
     DASHBOARD: '/dashboard/',
-    QUESTIONS: 'questions',
+    QUESTIONS: 'questions/',
     USER: 'user',
-    ADD_QUESTIONS: '/questions/add',
+    ADD_QUESTIONS: 'add',
 };

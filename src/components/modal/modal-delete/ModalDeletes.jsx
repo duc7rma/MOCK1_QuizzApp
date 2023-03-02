@@ -2,9 +2,8 @@ import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TYPE_CATEGORY } from 'constants/modal';
-import { deleteQuestions } from 'services/questions-service';
 import { showHideModal } from 'stores/modalSlice';
-import { fetchAllQuestionsAdminThunk } from 'stores/questionAdminSlice';
+import { deleteQuestionThunk, fetchAllQuestionsAdminThunk } from 'stores/questionAdminSlice';
 
 const ModalDelete = ({ type }) => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const ModalDelete = ({ type }) => {
 
   const handleOk = async () => {
     dispatch(showHideModal(false));
-    await deleteQuestions(currentQuestionId);
+    await deleteQuestionThunk(currentQuestionId);
 
     dispatch(fetchAllQuestionsAdminThunk({}));
   };

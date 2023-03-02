@@ -3,10 +3,11 @@ import { Button, Image, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCurrentQuestionId, showHideModal } from 'stores/modalSlice';
+import { setCurrentQuestionId, showHideModal, showHideModalUpdateQuestion } from 'stores/modalSlice';
 import { fetchAllQuestionsAdminThunk } from 'stores/questionAdminSlice';
 import ModalDelete from 'components/modal/modal-delete/ModalDeletes';
 import { TYPE_CATEGORY } from 'constants/modal';
+import ModalUpdateQuestion from 'components/modal/modal-update/ModalUpdateQuestion';
 
 const moment = require('moment');
 const defaultThumbnail = 'https://res.cloudinary.com/qn052289/image/upload/v1664685443/gsriwi4r6ndzq5f5d1rz.webp';
@@ -70,10 +71,10 @@ const ResultsQuestions = () => {
             icon={<EditOutlined />}
             size={'medium'}
             style={{ backgroundColor: 'green' }}
-            //   onClick={() => {
-            //     dispatch(setIsOpenUpdate(true));
-            //     dispatch(setIdQuestion(dataIndex.idQuestion));
-            //   }}
+            onClick={() => {
+              dispatch(showHideModalUpdateQuestion(true));
+              dispatch(setCurrentQuestionId(dataIndex.id));
+            }}
           />
           <Button
             type="primary"
@@ -114,6 +115,7 @@ const ResultsQuestions = () => {
     <>
       <Table columns={columns} dataSource={dataQuestions} />
       <ModalDelete type={TYPE_CATEGORY.QUESTION} />
+      <ModalUpdateQuestion />
     </>
   );
 };

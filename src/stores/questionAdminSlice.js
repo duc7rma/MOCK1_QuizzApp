@@ -1,13 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-// import Cookies from "js-cookie"
-import { fetchAllQuestionsAdmin } from "services/questions-admin-service"
-// import { toastCss } from "../components/StyleComponent/StyleCompoent"
-// import { deleteQuestionAPI, updateQuestionAPI } from "../config/API"
-// import axiosInstance from "../config/customAxios"
-// import { ACCESS_TOKEN_KEY } from "../config/token"
+import { deleteQuestionsAdmin, fetchAllQuestionsAdmin, updateQuestionsAdmin } from "services/questions-admin-service"
+
 
 export const fetchAllQuestionsAdminThunk = createAsyncThunk('questions/fetchAllQuestions', async (params) => {
     const res = await fetchAllQuestionsAdmin(params)
+    return res.data
+})
+
+export const deleteQuestionThunk = createAsyncThunk('questions/deleteQuestion', async (id) => {
+    const res = await deleteQuestionsAdmin(id)
+    return res.data
+})
+
+export const updateQuestionThunk = createAsyncThunk('questions/updateQuestion', async (id, payload) => {
+    const res = await updateQuestionsAdmin(id, payload)
     return res.data
 })
 
@@ -63,52 +69,25 @@ const questionsAdminSlice = createSlice({
                 state.loading = false
                 state.isDeleteQuestion = false
             })
-        // .addCase(updateQuestion.pending, (state, action) => {
-        //     state.statusUpdateQuestion = true
-        // })
-        // .addCase(updateQuestion.fulfilled, (state, action) => {
-        //     state.statusUpdateQuestion = false
-        //     state.questions = state.questions.map(el => {
-        //         if (el.id === action.payload.id) return action.payload
-        //         return el
-        //     })
-        // })
-        // .addCase(deleteQuestion.pending, (state, action) => {
-        //     state.statusDeleteQuestion = true
-        // })
-        // .addCase(deleteQuestion.fulfilled, (state, action) => {
-        //     state.statusDeleteQuestion = false
-        //     state.isDeleteQuestion = true
-        // })
+            // .addCase(updateQuestion.pending, (state, action) => {
+            //     state.statusUpdateQuestion = true
+            // })
+            // .addCase(updateQuestion.fulfilled, (state, action) => {
+            //     state.statusUpdateQuestion = false
+            //     state.questions = state.questions.map(el => {
+            //         if (el.id === action.payload.id) return action.payload
+            //         return el
+            //     })
+            // })
+            .addCase(deleteQuestionThunk.pending, (state, action) => {
+                state.statusDeleteQuestion = true
+            })
+            .addCase(deleteQuestionThunk.fulfilled, (state, action) => {
+                state.statusDeleteQuestion = false
+                state.isDeleteQuestion = true
+            })
     }
 })
-
-// export const updateQuestion = createAsyncThunk('quesitons/updateQuestion', async (values) => {
-//     try {
-//         const data = {
-//             title: values.keywords,
-//             thumbnail_link: values.thumbnail_link
-//         }
-//         const res = await axiosInstance.patch(
-//             updateQuestionAPI + values.id, data, { headers: { "Authorization": `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` } }
-//         )
-//         toast.success(res.data.message, toastCss)
-//         return res.data.data
-//     } catch (error) {
-//         toast.success('Update failed', toastCss)
-//     }
-
-// })
-
-// export const deleteQuestion = createAsyncThunk('questions/deleteQuestion', async (idQuestion) => {
-//     try {
-//         const res = await axiosInstance.delete(deleteQuestionAPI + idQuestion, { headers: { "Authorization": `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` } })
-//         toast.success(res.data.message, toastCss)
-//         return idQuestion
-//     } catch (err) {
-//         toast.error('Delete failed', toastCss)
-//     }
-// })
 
 const { actions, reducer: questionsAdminReducer } = questionsAdminSlice;
 

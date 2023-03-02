@@ -13,7 +13,7 @@ const SignUpPage = React.lazy(() => import('pages/non-auth/sign-up/SignUpPage'))
 const ForgotPasswordPage = React.lazy(() => import('pages/non-auth/forgot-password/ForgotPasswordPage'));
 const AddQuesTionForm = React.lazy(() => import('containers/dashboard/questions/add/AddQuestionForm'));
 const Questions = React.lazy(() => import('containers/dashboard/questions/Questions'));
-const AnswerPage = React.lazy(() => import('containers/answer/AnswerPage'));
+const GoToPlayPage = React.lazy(() => import('containers/answer/GoToPlayPage'));
 const Dashboard = React.lazy(() => import('containers/dashboard/Dashboard'));
 const User = React.lazy(() => import('containers/dashboard/users/User'));
 const PageNotFound = React.lazy(() => import('components/page-not-found/PageNotFound'));
@@ -33,16 +33,15 @@ const Routes = () => {
 
         <Route element={<AuthLayout />}>
           <Route path="/" element={<ProtectedRoute />}>
-            <Route index element={<AnswerPage />} />
+            <Route index element={<GoToPlayPage />} />
 
-            <Route path={RoutePaths.GO_TO_PLAY} element={<AnswerPage />} />
+            <Route path={RoutePaths.GO_TO_PLAY} element={<GoToPlayPage />} />
             <Route path={RoutePaths.DASHBOARD} element={<Dashboard />}>
-              <Route index element={<Questions />} />
-              <Route path={RoutePaths.QUESTIONS} element={<Questions />} />
+              <Route path={RoutePaths.QUESTIONS} element={<Questions />}>
+                <Route path={RoutePaths.ADD_QUESTIONS} element={<AddQuesTionForm />} />
+              </Route>
               <Route path={RoutePaths.USER} element={<User />} />
             </Route>
-
-            <Route path={RoutePaths.ADD_QUESTIONS} element={<AddQuesTionForm />} />
           </Route>
         </Route>
 
