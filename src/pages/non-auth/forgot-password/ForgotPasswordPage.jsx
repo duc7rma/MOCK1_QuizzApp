@@ -27,7 +27,7 @@ function ForgotPasswordPage() {
       <div className="forgot-password_body">
         <Formik initialValues={{ email: '' }} onSubmit={handleOnSubmit} validationSchema={validationSchema}>
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-            <form className="signUp_form" onSubmit={handleSubmit}>
+            <form className="forgot-password_form" onSubmit={handleSubmit}>
               <TextField
                 fullWidth
                 style={{ margin: '10px', width: '100%' }}

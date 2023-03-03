@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <Tabs defaultActiveKey="questions" items={items} onChange={handleChangeTab} />
+      <Tabs type="card" defaultActiveKey="questions" items={items} onChange={handleChangeTab} />
     </div>
   );
 };

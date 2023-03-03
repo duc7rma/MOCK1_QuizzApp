@@ -1,12 +1,18 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import './AuthLayout.scss';
 import Header from 'containers/header/Header';
+import { EAuthToken } from 'variables';
+import { RoutePaths } from 'routes/route-constants';
 
-const AuthLayout = ({ children }) => {
+const AuthLayout = () => {
+  const accessToken = localStorage.getItem(EAuthToken.ACCESS_TOKEN);
+
+  if (!accessToken) {
+    return <Navigate to={RoutePaths.SIGN_IN} replace />;
+  }
   return (
     <div className="Auth-layout">
-      {/* {children} */}
       <div className="tab-header">
         <Header />
       </div>

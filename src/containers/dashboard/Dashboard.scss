@@ -1,9 +1,15 @@
 .dashboard-container {
   margin: 0 100px;
 
-  div#rc-tabs-0-tab-2,
-  div#rc-tabs-0-tab-1 {
-    font-size: 20px;
+  div#rc-tabs-0-tab-questions,
+  div#rc-tabs-0-tab-users {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  div#rc-tabs-1-tab-questions,
+  div#rc-tabs-1-tab-users {
+    font-size: 18px;
     font-weight: 600;
   }
 }

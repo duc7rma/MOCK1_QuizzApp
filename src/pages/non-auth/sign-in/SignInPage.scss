@@ -1,38 +1,35 @@
 .signIn {
-  &_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    flex-direction: column;
-    background: antiquewhite;
-    border-radius: 12px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06);
-    margin: auto;
-    margin-top: 20vh;
+  padding: 20px;
+  width: 500px;
+  background: antiquewhite;
+  border-radius: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06);
+  margin: auto;
+  margin-top: 20vh;
 
-    .btn-submit {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ant-col.ant-col-8.ant-form-item-label.css-dev-only-do-not-override-k83k30 {
-      text-align: left;
-    }
-
-    .ant-form-item-explain-error {
-      text-align: left;
-      font-size: 10px;
-    }
+  input {
+    background: white;
   }
 
-  &_email,
-  &_password {
-    display: -webkit-flex;
+  &_form {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &_forgot-password {
+      width: 100%;
+      text-align: left;
+      color: blue;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+
+    .MuiFormControl-root {
+      width: 400px;
+    }
   }
 
   &_not-account {
@@ -48,15 +45,7 @@
   }
 
   &_bottom {
-    margin-bottom: 20px;
-  }
-
-  &_forgot-password {
-    text-align: left;
-    color: blue;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+    margin-top: 20px;
   }
 }

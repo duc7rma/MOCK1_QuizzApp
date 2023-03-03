@@ -1,25 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import TabPanel from 'components/tab-panel/TabPanel';
-import AnswerPage from 'src/containers/answer/GoToPlayPage';
-import Dashboard from 'containers/dashboard/Dashboard';
+import { getMyProfileThunk } from 'stores/userSlice';
 import './HomPage.scss';
 
 export default function HomePage() {
-  const tabId = useSelector((state) => state.tab);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyProfileThunk());
+  }, [dispatch]);
 
   return (
     <div className="tab-container">
-      {/* <div className="tab-header">
-        <Header />
-      </div> */}
       <div className="tab-content">
-        <TabPanel onClick={() => console.log('...')} value={tabId} index={0}>
-          <AnswerPage />
-        </TabPanel>
-        <TabPanel value={tabId} index={1}>
-          <Dashboard />
-        </TabPanel>
+        <Outlet />
       </div>
     </div>
   );

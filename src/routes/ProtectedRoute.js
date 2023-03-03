@@ -6,8 +6,6 @@ import { RoutePaths } from './route-constants';
 const ProtectedRoute = ({ children }) => {
     const accessToken = localStorage.getItem(EAuthToken.ACCESS_TOKEN);
 
-
-
     if (!accessToken) {
         return <Navigate to={RoutePaths.SIGN_IN} replace />;
     }

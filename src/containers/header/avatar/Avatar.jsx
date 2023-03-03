@@ -3,17 +3,20 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
-import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { RoutePaths } from 'routes/route-constants';
 import { logOut } from 'services/auth-service';
 import { EAuthToken } from 'variables';
+import { useSelector } from 'react-redux';
 
 export default function MyAvatar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+  const avatar_link = useSelector((state) => state.user.user.avatar_link);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,7 +30,7 @@ export default function MyAvatar() {
     const refresh_token = localStorage.getItem(EAuthToken.REFRESH_TOKEN);
     await logOut({ refresh_token });
 
-    navigate(RoutePaths.SIGN_IN, { replace: true });
+    navigate(RoutePaths.SIGN_IN);
   };
 
   return (
@@ -40,7 +43,7 @@ export default function MyAvatar() {
         onClick={handleClick}
       >
         <Stack direction="row" spacing={2}>
-          <Avatar alt="Remy Sharp" src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e" />
+          <Avatar alt="" src={avatar_link} />
         </Stack>
       </Button>
       <Menu
@@ -52,7 +55,6 @@ export default function MyAvatar() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

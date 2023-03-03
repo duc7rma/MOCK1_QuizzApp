@@ -3,6 +3,7 @@ import { Routes as ReactRoutes, Route } from 'react-router-dom';
 
 import { EAuthToken } from 'variables';
 import { RoutePaths } from './route-constants';
+import HomePage from 'pages/home/HomePage';
 
 import ProtectedRoute from './ProtectedRoute';
 const NonAuthLayout = React.lazy(() => import('layouts/non-auth/NonAuthLayout'));
@@ -31,16 +32,19 @@ const Routes = () => {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<ProtectedRoute />}>
+          {/* <Route path="/" element={<ProtectedRoute />}> */}
+          <Route index element={<HomePage />} />
+          <Route path={RoutePaths.HOME} element={<HomePage />}>
             <Route index element={<GoToPlayPage />} />
-
             <Route path={RoutePaths.GO_TO_PLAY} element={<GoToPlayPage />} />
             <Route path={RoutePaths.DASHBOARD} element={<Dashboard />}>
+              <Route index element={<Questions />} />
               <Route path={RoutePaths.QUESTIONS} element={<Questions />} />
               <Route path={RoutePaths.USER} element={<User />} />
             </Route>
           </Route>
         </Route>
+        {/* </Route> */}
 
         <Route path="*" element={<PageNotFound />} />
       </ReactRoutes>

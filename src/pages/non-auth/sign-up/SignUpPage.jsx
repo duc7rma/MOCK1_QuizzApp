@@ -1,12 +1,12 @@
+import LoadingButton from '@mui/lab/LoadingButton';
+import TextField from '@mui/material/TextField';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 
-import { signUpSchema } from 'utils/yup/sign-up';
-import { signUp } from 'services/auth-service';
-import './SignUpPage.scss';
 import { RoutePaths } from 'routes/route-constants';
+import { signUp } from 'services/auth-service';
+import { signUpSchema } from 'utils/yup/sign-up';
+import './SignUpPage.scss';
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ function SignUpPage() {
               fullWidth
               type="submit"
               style={{ marginTop: '10px', marginBottom: '10px', width: '100px' }}
-              //   loading={loading}
+              loading={isSubmitting}
             >
               Sign Up
             </LoadingButton>

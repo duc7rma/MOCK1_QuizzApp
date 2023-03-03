@@ -5,12 +5,11 @@ export const RoutePaths = {
     FORGOT_PASSWORD: '/forgot-password',
 
     // Auth
-    HOME: '/',
-    GO_TO_PLAY: '/go-to-play',
+    HOME: '/home',
+    GO_TO_PLAY: '/home/go-to-play',
 
     // dashboard
-    DASHBOARD: '/dashboard/',
-    QUESTIONS: 'questions/',
-    USER: 'user',
-    ADD_QUESTIONS: 'add',
+    DASHBOARD: '/home/dashboard',
+    QUESTIONS: '/home/dashboard/questions',
+    USER: '/home/dashboard/user',
 };
