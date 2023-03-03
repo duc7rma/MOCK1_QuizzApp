@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showToast, toastType } from 'components/toast/toast';
 import { showHideModalUpdateUser } from 'stores/modalSlice';
 import { fetchAllUsersAdminThunk, getDetailsUserThunk, setCurrentUser, updateUserThunk } from 'stores/userAdminSlice';
-import { convertUserRole, optionsUserRole } from 'utils/user-ultis';
+import { convertUserRole, optionsUserRole } from 'utils/user-utils';
 import { EAuthToken } from 'variables';
 import './ModalUpdateQuestion.scss';
+import { updateAvatar } from 'stores/userSlice';
 
 const ModalUpdateUser = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const ModalUpdateUser = () => {
 
   const isOpen = useSelector((state) => state.modal.isShowUpdateUser);
   const currentUserId = useSelector((state) => state.modal.currentUserId);
+  const userAuthId = useSelector((state) => state.user.user.id);
 
   const props = {
     name: 'avatar',
@@ -33,6 +35,8 @@ const ModalUpdateUser = () => {
 
       if (info.file.status === 'done') {
         setAvatar(info.fileList[0].response.data);
+        dispatch(updateAvatar(info.fileList[0].response.data));
+
         showToast(`${info.fileList[0].response.message}`, toastType.success);
       } else if (info.file.status === 'error') {
         showToast(
@@ -49,7 +53,6 @@ const ModalUpdateUser = () => {
     arrRoles.forEach((ele) => {
       roles.push(...ele);
     });
-    console.log('roles: ', roles);
     setRoles(roles);
   };
 
@@ -68,6 +71,7 @@ const ModalUpdateUser = () => {
 
     dispatch(fetchAllUsersAdminThunk({}));
   };
+
   const handleCancel = () => {
     dispatch(showHideModalUpdateUser(false));
   };
@@ -107,19 +111,21 @@ const ModalUpdateUser = () => {
         onChange={(e) => setName(e.target.value)}
       />
 
-      {avatar && (
-        <div
-          style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '12px 0', borderRadius: '50%' }}
-        >
-          <Image width={150} src={avatar} />
-        </div>
-      )}
+      {userAuthId === currentUserId && (
+        <>
+          <div
+            style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '12px 0', borderRadius: '50%' }}
+          >
+            <Image width={150} src={avatar} />
+          </div>
 
-      <Upload {...props}>
-        <Button disabled={lengthFileList >= 1 ? true : false} icon={<UploadOutlined />}>
-          Upload
-        </Button>
-      </Upload>
+          <Upload {...props}>
+            <Button disabled={lengthFileList >= 1 ? true : false} icon={<UploadOutlined />}>
+              Upload
+            </Button>
+          </Upload>
+        </>
+      )}
 
       <Cascader
         name="roles"
@@ -131,8 +137,6 @@ const ModalUpdateUser = () => {
         value={convertUserRole(roles)}
         onChange={handleChangeRoles}
       />
-
-      {/* <FormAnswer /> */}
     </Modal>
   );
 };

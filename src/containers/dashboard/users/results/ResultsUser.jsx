@@ -3,7 +3,7 @@ import { Button, Image, Space, Table, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ModalAddQuestion from 'components/modal/modal-add/ModalAddQuestion';
+import ModalAddUser from 'components/modal/modal-add/ModalAddUser';
 import ModalDelete from 'components/modal/modal-delete/ModalDeletes';
 import ModalUpdateUser from 'components/modal/modal-update/ModalUpdateUser';
 import { TYPE_CATEGORY } from 'constants/modal';
@@ -144,7 +144,7 @@ const ResultsUser = () => {
       <Table columns={columns} dataSource={listUsers} />
       <ModalDelete type={TYPE_CATEGORY.USER} />
       <ModalUpdateUser />
-      {/* <ModalAddQuestion /> */}
+      <ModalAddUser />
     </>
   );
 };

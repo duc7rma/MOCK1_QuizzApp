@@ -59,6 +59,7 @@ function ModalAddQuestion() {
   const handleCancel = () => {
     dispatch(showHideModalAddQuestion(false));
   };
+
   return (
     <Modal
       className="modal-add-question"
@@ -91,8 +92,6 @@ function ModalAddQuestion() {
       <p style={{ color: 'red', fontStyle: 'italic' }}>
         Note: To add answers for question, let do it in "Edit question"
       </p>
-
-      {/* <FormAnswer /> */}
     </Modal>
   );
 }

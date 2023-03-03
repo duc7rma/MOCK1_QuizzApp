@@ -1,33 +1,22 @@
-import EmojiObjectsRoundedIcon from '@mui/icons-material/EmojiObjectsRounded';
-import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
+import { RoutePaths } from 'routes/route-constants';
 import MyAvatar from './avatar/Avatar';
 import TabsHeader from './tabs/Tabs';
 import './Header.scss';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <div className="header">
       <div className="header_logo">
-        <EmojiObjectsRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          href="/home"
-          sx={{
-            mr: 10,
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'monospace',
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'blue',
-            textDecoration: 'none',
-            width: '100px',
-          }}
-        >
-          QUIZZ
-        </Typography>
+        <img
+          alt=""
+          style={{ borderRadius: '50%' }}
+          width={60}
+          src="https://apptraitsolutions.com/wp-content/uploads/2021/01/C88IZyEo7g-1.jpg"
+          onClick={() => navigate(RoutePaths.HOME)}
+        />
       </div>
 
       <TabsHeader />

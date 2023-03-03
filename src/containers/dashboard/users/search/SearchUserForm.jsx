@@ -2,8 +2,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Input, Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { showHideModalAddQuestion } from 'stores/modalSlice';
-import { setKeyWords, setSortField, setSortOrder, setRole, fetchAllUsersAdminThunk } from 'stores/userAdminSlice';
+import { showHideModalAddUser } from 'stores/modalSlice';
+import { fetchAllUsersAdminThunk, setKeyWords, setRole, setSortField, setSortOrder } from 'stores/userAdminSlice';
 import './SearchUserForm.scss';
 
 function SearchUserForm() {
@@ -94,7 +94,7 @@ function SearchUserForm() {
         </Button>
       </Space>
 
-      <Button type="primary" onClick={() => dispatch(showHideModalAddQuestion(true))} loading={loading}>
+      <Button type="primary" onClick={() => dispatch(showHideModalAddUser(true))} loading={loading}>
         <PlusOutlined />
         ADD
       </Button>

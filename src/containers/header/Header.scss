@@ -7,5 +7,9 @@
 
   &_logo {
     display: flex;
+
+    img {
+      cursor: pointer;
+    }
   }
 }

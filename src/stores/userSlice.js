@@ -23,8 +23,11 @@ const userSlice = createSlice({
     },
     reducers: {
         addUser(state, action) {
-            state.push(action.payload);
+            state.user = action.payload;
         },
+        updateAvatar(state, action) {
+            state.user = { ...state.user, avatar_link: action.payload }
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -58,5 +61,5 @@ const userSlice = createSlice({
 
 const { actions, reducer: userReducer } = userSlice;
 
-export const { addUser } = actions;
+export const { addUser, updateAvatar } = actions;
 export default userReducer
