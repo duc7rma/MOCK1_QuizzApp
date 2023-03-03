@@ -11,7 +11,6 @@ const AuthLayout = React.lazy(() => import('layouts/auth/AuthLayout'));
 const SignInPage = React.lazy(() => import('pages/non-auth/sign-in/SignInPage'));
 const SignUpPage = React.lazy(() => import('pages/non-auth/sign-up/SignUpPage'));
 const ForgotPasswordPage = React.lazy(() => import('pages/non-auth/forgot-password/ForgotPasswordPage'));
-const AddQuesTionForm = React.lazy(() => import('containers/dashboard/questions/add/AddQuestionForm'));
 const Questions = React.lazy(() => import('containers/dashboard/questions/Questions'));
 const GoToPlayPage = React.lazy(() => import('containers/answer/GoToPlayPage'));
 const Dashboard = React.lazy(() => import('containers/dashboard/Dashboard'));
@@ -37,9 +36,7 @@ const Routes = () => {
 
             <Route path={RoutePaths.GO_TO_PLAY} element={<GoToPlayPage />} />
             <Route path={RoutePaths.DASHBOARD} element={<Dashboard />}>
-              <Route path={RoutePaths.QUESTIONS} element={<Questions />}>
-                <Route path={RoutePaths.ADD_QUESTIONS} element={<AddQuesTionForm />} />
-              </Route>
+              <Route path={RoutePaths.QUESTIONS} element={<Questions />} />
               <Route path={RoutePaths.USER} element={<User />} />
             </Route>
           </Route>

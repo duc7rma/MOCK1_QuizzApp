@@ -27,9 +27,12 @@ export const deleteQuestionsAdmin = async (id) => {
     }
 };
 
-export const updateQuestionsAdmin = async (id, payload) => {
+export const updateQuestionsAdmin = async (payload) => {
     try {
-        const res = await ApiClient.patch(`questions/${id}`, payload);
+        const res = await ApiClient.patch(`questions/${payload.id}`, {
+            title: payload.title,
+            thumbnail_link: payload.thumbnail_link,
+        });
         showToast(res.data.message, toastType.success)
 
         return res.data;
@@ -39,7 +42,7 @@ export const updateQuestionsAdmin = async (id, payload) => {
     }
 };
 
-export const getDetailsQuestion = async (id) => {
+export const getDetailsQuestionAdmin = async (id) => {
     try {
         const res = await ApiClient.get(`questions/${id}`);
         showToast(res.data.message, toastType.success)
@@ -50,4 +53,17 @@ export const getDetailsQuestion = async (id) => {
         showToast(error.message, toastType.error)
     }
 }
+
+export const addQuestionsAdmin = async (payload) => {
+    try {
+        const res = await ApiClient.post(`questions`, payload);
+        showToast(res.data.message, toastType.success)
+
+        return res.data;
+    }
+    catch (error) {
+        showToast(error.message, toastType.error)
+    }
+};
+
 

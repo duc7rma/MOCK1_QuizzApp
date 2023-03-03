@@ -5,6 +5,7 @@ const modalSlice = createSlice({
     initialState: {
         isShow: false,  // show modal delete
         isShowUpdateQuestion: false,
+        isShowAddQuestion: false,
         currentQuestionId: undefined,
         currentUserId: undefined,
     },
@@ -14,6 +15,9 @@ const modalSlice = createSlice({
         },
         showHideModalUpdateQuestion(state, action) {
             state.isShowUpdateQuestion = action.payload;
+        },
+        showHideModalAddQuestion(state, action) {
+            state.isShowAddQuestion = action.payload;
         },
         setCurrentQuestionId(state, action) {
             state.currentQuestionId = action.payload;
@@ -26,5 +30,5 @@ const modalSlice = createSlice({
 
 const { actions, reducer: modalReducer } = modalSlice;
 
-export const { showHideModal, showHideModalUpdateQuestion, setCurrentQuestionId, setCurrentUserId } = actions;
+export const { showHideModal, showHideModalUpdateQuestion, showHideModalAddQuestion, setCurrentQuestionId, setCurrentUserId } = actions;
 export default modalReducer

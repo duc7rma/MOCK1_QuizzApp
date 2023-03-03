@@ -4,6 +4,7 @@ import userReducer from './userSlice';
 import questionsReducer from './questionSlice';
 import questionsAdminReducer from './questionAdminSlice';
 import modalReducer from './modalSlice';
+import answersAdminReducer from './answerAdminSlice';
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         tab: tabReducer,
         questions: questionsReducer,
         questionsAdmin: questionsAdminReducer,
-        modal: modalReducer
+        modal: modalReducer,
+        answerAdmin: answersAdminReducer
     }
 })
 

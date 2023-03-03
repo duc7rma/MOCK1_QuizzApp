@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { deleteQuestionsAdmin, fetchAllQuestionsAdmin, updateQuestionsAdmin } from "services/questions-admin-service"
+import { addQuestionsAdmin, deleteQuestionsAdmin, fetchAllQuestionsAdmin, getDetailsQuestionAdmin, updateQuestionsAdmin } from "services/questions-admin-service"
 
 
 export const fetchAllQuestionsAdminThunk = createAsyncThunk('questions/fetchAllQuestions', async (params) => {
@@ -12,24 +12,36 @@ export const deleteQuestionThunk = createAsyncThunk('questions/deleteQuestion', 
     return res.data
 })
 
-export const updateQuestionThunk = createAsyncThunk('questions/updateQuestion', async (id, payload) => {
-    const res = await updateQuestionsAdmin(id, payload)
+export const updateQuestionThunk = createAsyncThunk('questions/updateQuestion', async (payload, thunkAPI) => {
+    const res = await updateQuestionsAdmin(payload)
+    return res.data
+})
+
+export const addQuestionThunk = createAsyncThunk('questions/addQuestion', async (payload) => {
+    const res = await addQuestionsAdmin(payload)
+    return res.data
+})
+
+export const getDetailsQuestionThunk = createAsyncThunk('questions/getDetailsQuestion', async (id) => {
+    const res = await getDetailsQuestionAdmin(id)
     return res.data
 })
 
 const initState = {
     questions: [],
-    loading: false,
-    index: 0,
     total: 0,
     pageSize: 10,
     currentPage: 1,
     order: 'ASC',
     sortField: 'id',
     keywords: '',
-    statusUpdateQuestion: false,
-    statusDeleteQuestion: false,
-    isDeleteQuestion: false,
+    currentQuestionDetail: {},
+
+    loading: false,
+    isLoadingAdd: false,
+    isLoadingUpdate: false,
+    isLoadingDelete: false,
+
 }
 
 const questionsAdminSlice = createSlice({
@@ -53,6 +65,9 @@ const questionsAdminSlice = createSlice({
         },
         setKeyWords: (state, action) => {
             state.keywords = action.payload
+        },
+        setCurrentQuestion: (state, action) => {
+            state.currentQuestionDetail = action.payload
         }
 
     },
@@ -69,27 +84,31 @@ const questionsAdminSlice = createSlice({
                 state.loading = false
                 state.isDeleteQuestion = false
             })
-            // .addCase(updateQuestion.pending, (state, action) => {
-            //     state.statusUpdateQuestion = true
-            // })
-            // .addCase(updateQuestion.fulfilled, (state, action) => {
-            //     state.statusUpdateQuestion = false
-            //     state.questions = state.questions.map(el => {
-            //         if (el.id === action.payload.id) return action.payload
-            //         return el
-            //     })
-            // })
+
             .addCase(deleteQuestionThunk.pending, (state, action) => {
-                state.statusDeleteQuestion = true
+                state.isLoadingDelete = true
             })
             .addCase(deleteQuestionThunk.fulfilled, (state, action) => {
-                state.statusDeleteQuestion = false
-                state.isDeleteQuestion = true
+                state.isLoadingDelete = false
+            })
+
+            .addCase(updateQuestionThunk.pending, (state, action) => {
+                state.isLoadingUpdate = true
+            })
+            .addCase(updateQuestionThunk.fulfilled, (state, action) => {
+                state.isLoadingUpdate = false
+            })
+
+            .addCase(addQuestionThunk.pending, (state, action) => {
+                state.isLoadingAdd = true
+            })
+            .addCase(addQuestionThunk.fulfilled, (state, action) => {
+                state.isLoadingAdd = false
             })
     }
 })
 
 const { actions, reducer: questionsAdminReducer } = questionsAdminSlice;
 
-export const { setListQuestion, setCurrentPage, setSortOrder, setSortField, setKeyWords } = actions;
+export const { setListQuestion, setCurrentPage, setSortOrder, setSortField, setKeyWords, setCurrentQuestion } = actions;
 export default questionsAdminReducer;

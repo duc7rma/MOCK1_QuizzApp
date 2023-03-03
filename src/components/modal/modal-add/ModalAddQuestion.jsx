@@ -1,25 +1,25 @@
 import { UploadOutlined } from '@ant-design/icons';
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 import { Button, Image, Modal, Upload } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { showToast, toastType } from 'components/toast/toast';
 import FormAnswer from 'containers/form-answer/FormAnswer';
-import { getDetailsQuestionAdmin } from 'services/questions-admin-service';
-import { showHideModalUpdateQuestion } from 'stores/modalSlice';
-import { fetchAllQuestionsAdminThunk, setCurrentQuestion, updateQuestionThunk } from 'stores/questionAdminSlice';
+import { showToast, toastType } from 'components/toast/toast';
+import { addQuestionsAdmin } from 'services/questions-admin-service';
+import { showHideModalAddQuestion } from 'stores/modalSlice';
+import { fetchAllQuestionsAdminThunk } from 'stores/questionAdminSlice';
 import { EAuthToken } from 'variables';
-import './ModalUpdateQuestion.scss';
+import './ModalAddQuestion.scss';
 
-const ModalUpdateQuestion = () => {
+function ModalAddQuestion() {
   const dispatch = useDispatch();
-  const [lengthFileList, setLengthFileList] = useState(0);
-  const [title, setTitle] = useState('');
-  const [thumbnail, setThumbnail] = useState('');
+  const isOpen = useSelector((state) => state.modal.isShowAddQuestion);
 
-  const isOpen = useSelector((state) => state.modal.isShowUpdateQuestion);
-  const currentQuestionId = useSelector((state) => state.modal.currentQuestionId);
+  const [title, setTitle] = useState('');
+  const [lengthFileList, setLengthFileList] = useState(0);
+  const [thumbnail, setThumbnail] = useState('');
+  const [hasThumbnail, setHasThumbnail] = useState(false);
 
   const props = {
     name: 'thumbnail',
@@ -32,6 +32,8 @@ const ModalUpdateQuestion = () => {
 
       if (info.file.status === 'done') {
         setThumbnail(info.fileList[0].response.data);
+        setHasThumbnail(true);
+
         showToast(`${info.fileList[0].response.message}`, toastType.success);
       } else if (info.file.status === 'error') {
         showToast(
@@ -41,43 +43,27 @@ const ModalUpdateQuestion = () => {
       }
     },
     multiple: false,
+    onRemove: () => setHasThumbnail(false),
   };
 
   const handleOk = async () => {
-    dispatch(showHideModalUpdateQuestion(false));
+    dispatch(showHideModalAddQuestion(false));
 
-    await dispatch(
-      updateQuestionThunk({
-        id: currentQuestionId,
-        title: title,
-        thumbnail_link: thumbnail,
-      }),
-    );
+    await addQuestionsAdmin({
+      title: title,
+      thumbnail_link: thumbnail,
+    });
 
     dispatch(fetchAllQuestionsAdminThunk({}));
   };
+
   const handleCancel = () => {
-    dispatch(showHideModalUpdateQuestion(false));
+    dispatch(showHideModalAddQuestion(false));
   };
-
-  useEffect(() => {
-    const fetchQuestion = async () => {
-      const res = await getDetailsQuestionAdmin(currentQuestionId);
-      dispatch(setCurrentQuestion(res.data));
-
-      setTitle(res.data.title);
-      setThumbnail(res.data.thumbnail_link);
-
-      return res.data;
-    };
-
-    isOpen && fetchQuestion();
-  }, [currentQuestionId]);
-
   return (
     <Modal
-      className="modal-update-question"
-      title="Update Question?"
+      className="modal-add-question"
+      title="Add New Question"
       open={isOpen}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -91,7 +77,7 @@ const ModalUpdateQuestion = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      {thumbnail && (
+      {hasThumbnail && (
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '12px 0' }}>
           <Image width={400} src={thumbnail} />
         </div>
@@ -103,8 +89,13 @@ const ModalUpdateQuestion = () => {
         </Button>
       </Upload>
 
-      <FormAnswer />
+      <p style={{ color: 'red', fontStyle: 'italic' }}>
+        Note: To add answers for question, let do it in "Edit question"
+      </p>
+
+      {/* <FormAnswer /> */}
     </Modal>
   );
-};
-export default ModalUpdateQuestion;
+}
+
+export default ModalAddQuestion;
