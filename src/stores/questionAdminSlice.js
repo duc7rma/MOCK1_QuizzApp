@@ -60,9 +60,6 @@ const questionsAdminSlice = createSlice({
         setSortField: (state, action) => {
             state.sortField = action.payload
         },
-        setIsDeleteQuestion: (state, action) => {
-            state.isDeleteQuestion = action.payload
-        },
         setKeyWords: (state, action) => {
             state.keywords = action.payload
         },

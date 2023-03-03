@@ -4,7 +4,6 @@ import { Button, Image, Modal, Upload } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import FormAnswer from 'containers/form-answer/FormAnswer';
 import { showToast, toastType } from 'components/toast/toast';
 import { addQuestionsAdmin } from 'services/questions-admin-service';
 import { showHideModalAddQuestion } from 'stores/modalSlice';

@@ -5,6 +5,7 @@ import questionsReducer from './questionSlice';
 import questionsAdminReducer from './questionAdminSlice';
 import modalReducer from './modalSlice';
 import answersAdminReducer from './answerAdminSlice';
+import userAdminReducer from './userAdminSlice';
 
 const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
         questions: questionsReducer,
         questionsAdmin: questionsAdminReducer,
         modal: modalReducer,
-        answerAdmin: answersAdminReducer
+        answerAdmin: answersAdminReducer,
+        userAdmin: userAdminReducer
     }
 })
 

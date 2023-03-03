@@ -3,16 +3,22 @@ import { createSlice } from '@reduxjs/toolkit'
 const modalSlice = createSlice({
     name: 'modal',
     initialState: {
-        isShow: false,  // show modal delete
+        isShow: false,  // show modal delete both question and user
+
         isShowUpdateQuestion: false,
         isShowAddQuestion: false,
         currentQuestionId: undefined,
+
+        isShowUpdateUser: false,
+        isShowAddUser: false,
         currentUserId: undefined,
     },
     reducers: {
+        // show modal delete both question and user
         showHideModal(state, action) {
             state.isShow = action.payload;
         },
+
         showHideModalUpdateQuestion(state, action) {
             state.isShowUpdateQuestion = action.payload;
         },
@@ -22,6 +28,14 @@ const modalSlice = createSlice({
         setCurrentQuestionId(state, action) {
             state.currentQuestionId = action.payload;
         },
+
+
+        showHideModalUpdateUser(state, action) {
+            state.isShowUpdateUser = action.payload;
+        },
+        showHideModalAddUser(state, action) {
+            state.isShowAddUser = action.payload;
+        },
         setCurrentUserId(state, action) {
             state.currentUserId = action.payload;
         }
@@ -30,5 +44,5 @@ const modalSlice = createSlice({
 
 const { actions, reducer: modalReducer } = modalSlice;
 
-export const { showHideModal, showHideModalUpdateQuestion, showHideModalAddQuestion, setCurrentQuestionId, setCurrentUserId } = actions;
+export const { showHideModal, showHideModalUpdateQuestion, showHideModalAddQuestion, setCurrentQuestionId, showHideModalUpdateUser, showHideModalAddUser, setCurrentUserId } = actions;
 export default modalReducer

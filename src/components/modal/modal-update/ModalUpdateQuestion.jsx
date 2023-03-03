@@ -6,9 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { showToast, toastType } from 'components/toast/toast';
 import FormAnswer from 'containers/form-answer/FormAnswer';
-import { getDetailsQuestionAdmin } from 'services/questions-admin-service';
 import { showHideModalUpdateQuestion } from 'stores/modalSlice';
-import { fetchAllQuestionsAdminThunk, setCurrentQuestion, updateQuestionThunk } from 'stores/questionAdminSlice';
+import {
+  fetchAllQuestionsAdminThunk,
+  getDetailsQuestionThunk,
+  setCurrentQuestion,
+  updateQuestionThunk,
+} from 'stores/questionAdminSlice';
 import { EAuthToken } from 'variables';
 import './ModalUpdateQuestion.scss';
 
@@ -62,11 +66,11 @@ const ModalUpdateQuestion = () => {
 
   useEffect(() => {
     const fetchQuestion = async () => {
-      const res = await getDetailsQuestionAdmin(currentQuestionId);
-      dispatch(setCurrentQuestion(res.data));
+      const res = await dispatch(getDetailsQuestionThunk(currentQuestionId));
+      dispatch(setCurrentQuestion(res.payload));
 
-      setTitle(res.data.title);
-      setThumbnail(res.data.thumbnail_link);
+      setTitle(res.payload.title);
+      setThumbnail(res.payload.thumbnail_link);
 
       return res.data;
     };

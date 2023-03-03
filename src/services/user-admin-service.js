@@ -1,9 +1,9 @@
 import { showToast, toastType } from 'components/toast/toast';
 import { ApiClient } from "./api-client";
 
-export const fetchAllQuestionsAdmin = async (params) => {
+export const fetchAllUserAdmin = async (params) => {
     try {
-        const res = await ApiClient.get('questions', {
+        const res = await ApiClient.get('user', {
             params: params
         });
         showToast(res.data.message, toastType.success)
@@ -14,9 +14,9 @@ export const fetchAllQuestionsAdmin = async (params) => {
     }
 };
 
-export const deleteQuestionsAdmin = async (id) => {
+export const deleteUserAdmin = async (id) => {
     try {
-        const res = await ApiClient.delete(`questions/${id}`);
+        const res = await ApiClient.delete(`user/${id}`);
         showToast(res.data.message, toastType.success)
 
         return res.data;
@@ -26,11 +26,13 @@ export const deleteQuestionsAdmin = async (id) => {
     }
 };
 
-export const updateQuestionsAdmin = async (payload) => {
+export const updateUserAdmin = async (payload) => {
     try {
-        const res = await ApiClient.patch(`questions/${payload.id}`, {
-            title: payload.title,
-            thumbnail_link: payload.thumbnail_link,
+        const res = await ApiClient.patch(`user/${payload.id}`, {
+            email: payload.email,
+            name: payload.name,
+            roles: payload.roles,
+            avatar_link: payload.avatar_link,
         });
         showToast(res.data.message, toastType.success)
 
@@ -41,9 +43,9 @@ export const updateQuestionsAdmin = async (payload) => {
     }
 };
 
-export const getDetailsQuestionAdmin = async (id) => {
+export const getDetailsUserAdmin = async (id) => {
     try {
-        const res = await ApiClient.get(`questions/${id}`);
+        const res = await ApiClient.get(`user/${id}`);
         showToast(res.data.message, toastType.success)
 
         return res.data;
@@ -53,9 +55,9 @@ export const getDetailsQuestionAdmin = async (id) => {
     }
 }
 
-export const addQuestionsAdmin = async (payload) => {
+export const addUserAdmin = async (payload) => {
     try {
-        const res = await ApiClient.post(`questions`, payload);
+        const res = await ApiClient.post(`user`, payload);
         showToast(res.data.message, toastType.success)
 
         return res.data;
