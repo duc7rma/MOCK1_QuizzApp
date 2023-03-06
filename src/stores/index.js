@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tabReducer from './tabSlice';
-import userReducer from './userSlice';
-import questionsReducer from './questionSlice';
-import questionsAdminReducer from './questionAdminSlice';
-import modalReducer from './modalSlice';
 import answersAdminReducer from './answerAdminSlice';
+import modalReducer from './modalSlice';
+import questionsAdminReducer from './questionAdminSlice';
+import questionsReducer from './questionSlice';
+import tabReducer from './tabSlice';
 import userAdminReducer from './userAdminSlice';
-import playReducer from './playSlice';
+import userReducer from './userSlice';
 
 const store = configureStore({
     reducer: {
@@ -17,7 +16,6 @@ const store = configureStore({
         modal: modalReducer,
         answerAdmin: answersAdminReducer,
         userAdmin: userAdminReducer,
-        play: playReducer
     }
 })
 

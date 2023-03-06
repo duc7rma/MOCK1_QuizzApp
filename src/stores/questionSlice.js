@@ -1,20 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { fetchListQuestions } from "services/questions-service";
+import { fetchListQuestions, submitQuestions } from "services/questions-service";
 
 const initState = {
     questions: [],
     loading: false,
     index: 1,
     total: 0,
-    listQuestionsSubmit: [],
+    loadingSubmit: false,
+    questionsSubmitted: [],
+    totalScore: 0
 }
 
-export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total, thunkAPI) => {
+export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total) => {
     const res = await fetchListQuestions(total);
     return res.data
 })
 
+
+export const submitQuestionsThunk = createAsyncThunk('question/submitQuestions', async (payload) => {
+    const res = await submitQuestions(payload);
+    return res.data
+})
 
 const questionSlice = createSlice({
     name: 'question',
@@ -29,8 +36,17 @@ const questionSlice = createSlice({
         resetQuestions: (state, action) => {
             state.questions = []
             state.status = false
-            // state.index = 0
+            state.index = 1
             state.total = 0
+        },
+        setAnswers: (state, action) => {
+            state.questions = state.questions.map(question => {
+                if (question.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return question
+                }
+            })
         },
     },
     extraReducers: (builder) => {
@@ -43,10 +59,20 @@ const questionSlice = createSlice({
                 state.questions = action.payload
                 state.total = action.payload.length
             })
+
+            .addCase(submitQuestionsThunk.pending, (state) => {
+                state.loadingSubmit = true
+            })
+            .addCase(submitQuestionsThunk.fulfilled, (state, action) => {
+                console.log(action.payload)
+                state.loadingSubmit = false
+                state.questionsSubmitted = action.payload.listQuestionChecked
+                state.totalScore = action.payload.totalScore
+            })
     }
 })
 
 const { actions, reducer: questionsReducer } = questionSlice;
 
-export const { setListQuestion, setIndex, resetQuestions } = actions;
+export const { setListQuestion, setIndex, resetQuestions, setAnswers } = actions;
 export default questionsReducer;

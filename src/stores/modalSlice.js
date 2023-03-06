@@ -13,7 +13,7 @@ const modalSlice = createSlice({
         isShowAddUser: false,
         currentUserId: undefined,
 
-        isShowChangePassword: false
+        isShowSubmitQuestion: false,
     },
     reducers: {
         // show modal delete both question and user
@@ -40,11 +40,15 @@ const modalSlice = createSlice({
         },
         setCurrentUserId(state, action) {
             state.currentUserId = action.payload;
-        }
+        },
+
+        showHideModalSubmitQuestion(state, action) {
+            state.isShowSubmitQuestion = action.payload;
+        },
     }
 })
 
 const { actions, reducer: modalReducer } = modalSlice;
 
-export const { showHideModal, showHideModalUpdateQuestion, showHideModalAddQuestion, setCurrentQuestionId, showHideModalUpdateUser, showHideModalAddUser, setCurrentUserId } = actions;
+export const { showHideModal, showHideModalUpdateQuestion, showHideModalAddQuestion, setCurrentQuestionId, showHideModalUpdateUser, showHideModalAddUser, setCurrentUserId, showHideModalSubmitQuestion } = actions;
 export default modalReducer
