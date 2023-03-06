@@ -26,7 +26,7 @@ function FormAnswer() {
       {listAnswersRender &&
         listAnswersRender.length > 0 &&
         listAnswersRender.map((answer) => (
-          <UpdateAnswer key={answer.id} content={answer.content} answerId={answer.id} correct={answer.is_correct} />
+          <UpdateAnswer key={answer?.id} content={answer?.content} answerId={answer?.id} correct={answer?.is_correct} />
         ))}
       <AddAnswer />
     </div>

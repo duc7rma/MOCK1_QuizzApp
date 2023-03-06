@@ -41,6 +41,8 @@ function UpdateAnswer({ content, correct, answerId }) {
         is_correct: rs.is_correct,
       }),
     );
+
+    setChecked(false);
   };
 
   return (
@@ -66,7 +68,15 @@ function UpdateAnswer({ content, correct, answerId }) {
       />
       <FormControlLabel
         label={content}
-        control={<Checkbox name="rememberMe" color="primary" checked={correct} onChange={handleToggleCheckBox} />}
+        control={
+          <Checkbox
+            name="rememberMe"
+            color="primary"
+            checked={correct}
+            value={checked}
+            onChange={handleToggleCheckBox}
+          />
+        }
       />
 
       {isEdit && <UpdateTitle answerId={answerId} checked={checked} setIsEdit={setIsEdit} content={content} />}

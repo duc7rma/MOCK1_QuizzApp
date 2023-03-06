@@ -2,7 +2,7 @@ import TextField from '@material-ui/core/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Cascader, Modal } from 'antd';
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { showHideModalAddUser } from 'stores/modalSlice';
@@ -13,27 +13,41 @@ import './ModalAddUser.scss';
 
 function ModalAddUser() {
   const dispatch = useDispatch();
+  const formRef = useRef();
+
   const [roles, setRoles] = useState([]);
+  const [rolesValues, setRolesValues] = useState();
 
   const isOpen = useSelector((state) => state.modal.isShowAddUser);
 
   const handleAddUser = async (values, onSubmitProps) => {
     let payload = { ...values, roles: roles };
 
+    // call api
     await dispatch(addUserThunk(payload));
-    // onSubmitProps.setSubmitting(false);
-    // onSubmitProps.resetForm();
-    // setRoles(['user']);
 
+    // clear form
+    onSubmitProps.setSubmitting(false);
+    onSubmitProps.resetForm();
+    setRolesValues(['user']);
+
+    //close modal
     dispatch(showHideModalAddUser(false));
+
+    // get list user
     dispatch(fetchAllUsersAdminThunk({}));
   };
 
   const handleCancel = () => {
+    formRef.current.handleReset();
+    setRolesValues(['user']);
+
     dispatch(showHideModalAddUser(false));
   };
 
   const handleChangeRoles = (arrRoles) => {
+    setRolesValues(arrRoles);
+
     let roles = [];
     arrRoles.forEach((ele) => {
       roles.push(...ele);
@@ -47,8 +61,9 @@ function ModalAddUser() {
         initialValues={{ name: '', email: '', password: '', confirmPassword: '', roles: [] }}
         validationSchema={addUserSchema}
         onSubmit={handleAddUser}
+        innerRef={formRef}
       >
-        {({ isValid, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, isValid, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, handleReset }) => (
           <form className="signUp_form" onSubmit={handleSubmit} loading={isSubmitting ? 1 : 0}>
             <TextField
               style={{ margin: '10px 0', width: '100%' }}
@@ -60,6 +75,7 @@ function ModalAddUser() {
               helperText={touched.name && errors.name}
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.name}
             />
 
             <TextField
@@ -73,6 +89,7 @@ function ModalAddUser() {
               helperText={touched.email && errors.email}
               onBlur={handleBlur}
               onChange={handleChange}
+              value={values.email}
             />
 
             <TextField
@@ -85,6 +102,7 @@ function ModalAddUser() {
               helperText={touched.password && errors.password}
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.password}
             />
 
             <TextField
@@ -97,6 +115,7 @@ function ModalAddUser() {
               helperText={touched.confirmPassword && errors.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.confirmPassword}
             />
 
             <Cascader
@@ -104,12 +123,16 @@ function ModalAddUser() {
                 marginTop: '10px',
                 width: '100%',
               }}
+              name="roles"
+              id="roles"
               placeholder="Roles"
               options={optionsUserRole}
               onChange={handleChangeRoles}
               multiple
               maxTagCount="responsive"
               onBlur={handleBlur}
+              value={rolesValues}
+              defaultValue={['user']}
             />
 
             <div style={{ textAlign: 'right' }}>

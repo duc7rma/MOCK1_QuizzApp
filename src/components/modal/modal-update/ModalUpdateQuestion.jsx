@@ -18,9 +18,9 @@ import './ModalUpdateQuestion.scss';
 
 const ModalUpdateQuestion = () => {
   const dispatch = useDispatch();
-  const [lengthFileList, setLengthFileList] = useState(0);
   const [title, setTitle] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+  const [progress, setProgress] = useState(false);
 
   const isOpen = useSelector((state) => state.modal.isShowUpdateQuestion);
   const currentQuestionId = useSelector((state) => state.modal.currentQuestionId);
@@ -31,17 +31,18 @@ const ModalUpdateQuestion = () => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem(EAuthToken.ACCESS_TOKEN)}`,
     },
-    onChange(info) {
-      setLengthFileList(info.fileList.length);
+    onChange({ file }) {
+      if (file.status === 'done') {
+        setProgress(false);
 
-      if (info.file.status === 'done') {
-        setThumbnail(info.fileList[0].response.data);
-        showToast(`${info.fileList[0].response.message}`, toastType.success);
-      } else if (info.file.status === 'error') {
-        showToast(
-          `${info.fileList[0].response ? info.fileList[0].response.message : 'Upload Failed!'}`,
-          toastType.error,
-        );
+        setThumbnail(file.response.data);
+        showToast(`${file.response.message}`, toastType.success);
+      } else if (file.status === 'error') {
+        setProgress(false);
+
+        showToast(`${file.response ? file.response.message : 'Upload Failed!'}`, toastType.error);
+      } else if (file.status === 'uploading') {
+        setProgress(true);
       }
     },
     multiple: false,
@@ -95,14 +96,16 @@ const ModalUpdateQuestion = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
 
+      {progress && showToast(`Uploading...`, toastType.info)}
+
       {thumbnail && (
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '12px 0' }}>
           <Image width={400} src={thumbnail} />
         </div>
       )}
 
-      <Upload {...props}>
-        <Button disabled={lengthFileList >= 1 ? true : false} icon={<UploadOutlined />}>
+      <Upload {...props} maxCount={1}>
+        <Button loading={progress} icon={<UploadOutlined />}>
           Upload
         </Button>
       </Upload>

@@ -1,11 +1,10 @@
 import React, { Suspense } from 'react';
 import { Routes as ReactRoutes, Route } from 'react-router-dom';
 
+import HomePage from 'pages/home/HomePage';
 import { EAuthToken } from 'variables';
 import { RoutePaths } from './route-constants';
-import HomePage from 'pages/home/HomePage';
 
-import ProtectedRoute from './ProtectedRoute';
 const NonAuthLayout = React.lazy(() => import('layouts/non-auth/NonAuthLayout'));
 const AuthLayout = React.lazy(() => import('layouts/auth/AuthLayout'));
 

@@ -22,7 +22,7 @@ function AddAnswer() {
       questionId: questionId,
     };
     const res = await addAnswerAdmin(payload);
-    dispatch(addAnswer(res.data));
+    dispatch(addAnswer(res?.data));
 
     setAnswer('');
 

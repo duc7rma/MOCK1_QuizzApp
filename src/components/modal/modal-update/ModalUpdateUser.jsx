@@ -14,11 +14,11 @@ import { updateAvatar } from 'stores/userSlice';
 
 const ModalUpdateUser = () => {
   const dispatch = useDispatch();
-  const [lengthFileList, setLengthFileList] = useState(0);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
   const [roles, setRoles] = useState([]);
+  const [progress, setProgress] = useState(false);
 
   const isOpen = useSelector((state) => state.modal.isShowUpdateUser);
   const currentUserId = useSelector((state) => state.modal.currentUserId);
@@ -30,19 +30,20 @@ const ModalUpdateUser = () => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem(EAuthToken.ACCESS_TOKEN)}`,
     },
-    onChange(info) {
-      setLengthFileList(info.fileList.length);
+    onChange({ file }) {
+      if (file.status === 'done') {
+        setProgress(false);
 
-      if (info.file.status === 'done') {
-        setAvatar(info.fileList[0].response.data);
-        dispatch(updateAvatar(info.fileList[0].response.data));
+        setAvatar(file.response.data);
+        dispatch(updateAvatar(file.response.data));
 
-        showToast(`${info.fileList[0].response.message}`, toastType.success);
-      } else if (info.file.status === 'error') {
-        showToast(
-          `${info.fileList[0].response ? info.fileList[0].response.message : 'Upload Failed!'}`,
-          toastType.error,
-        );
+        showToast(`${file.response.message}`, toastType.success);
+      } else if (file.status === 'error') {
+        setProgress(false);
+
+        showToast(`${file.response ? file.response.message : 'Upload Failed!'}`, toastType.error);
+      } else if (file.status === 'uploading') {
+        setProgress(true);
       }
     },
     multiple: false,
@@ -119,6 +120,8 @@ const ModalUpdateUser = () => {
         onChange={(e) => setName(e.target.value)}
       />
 
+      {progress && showToast(`Uploading...`, toastType.info)}
+
       {userAuthId === currentUserId && (
         <>
           <div
@@ -127,8 +130,8 @@ const ModalUpdateUser = () => {
             <Image width={150} src={avatar} />
           </div>
 
-          <Upload {...props}>
-            <Button disabled={lengthFileList >= 1 ? true : false} icon={<UploadOutlined />}>
+          <Upload {...props} maxCount={1}>
+            <Button loading={progress} icon={<UploadOutlined />}>
               Upload
             </Button>
           </Upload>

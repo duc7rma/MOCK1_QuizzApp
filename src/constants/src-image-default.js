@@ -1,0 +1,1 @@
+export const imageQuestionDefault = "https://camnanggiaoduc.com/wp-content/uploads/2018/04/Cau-hoi-mo.jpg"

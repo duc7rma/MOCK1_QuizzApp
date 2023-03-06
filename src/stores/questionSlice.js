@@ -5,9 +5,9 @@ import { fetchListQuestions } from "services/questions-service";
 const initState = {
     questions: [],
     loading: false,
-    index: 0,
-    number: 0,
-    total: 0
+    index: 1,
+    total: 0,
+    listQuestionsSubmit: [],
 }
 
 export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total, thunkAPI) => {
@@ -23,21 +23,15 @@ const questionSlice = createSlice({
         setListQuestion: (state, action) => {
             state.questions = action.payload
         },
-        setAnswerQuestion: (state, action) => {
-            state.questions = state.questions.map(item => {
-                if (item.id === action.payload.id) return action.payload
-                else return item
-            })
-        },
         setIndex: (state, action) => {
             state.index = action.payload
         },
         resetQuestions: (state, action) => {
             state.questions = []
             state.status = false
-            state.index = 0
-            state.number = 0
-        }
+            // state.index = 0
+            state.total = 0
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -54,5 +48,5 @@ const questionSlice = createSlice({
 
 const { actions, reducer: questionsReducer } = questionSlice;
 
-export const { setListQuestion, setIndex, setAnswerQuestion, resetQuestions } = actions;
+export const { setListQuestion, setIndex, resetQuestions } = actions;
 export default questionsReducer;

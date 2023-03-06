@@ -5,7 +5,6 @@ const tabSlice = createSlice({
     initialState: 'go-to-play',
     reducers: {
         changeTab(state, action) {
-            console.log(action.payload)
             return action.payload;
         },
 

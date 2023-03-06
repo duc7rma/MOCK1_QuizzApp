@@ -65,4 +65,16 @@ export const addQuestionsAdmin = async (payload) => {
     }
 };
 
+export const uploadThumbnailThunkAdmin = async (file) => {
+    try {
+        const res = await ApiClient.post(`questions/upload-thumbnail`, file);
+        showToast(res.data.message, toastType.success)
+
+        return res.data;
+    }
+    catch (error) {
+        showToast(error.message, toastType.error)
+    }
+};
+
 

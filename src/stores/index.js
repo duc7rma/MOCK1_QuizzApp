@@ -6,6 +6,7 @@ import questionsAdminReducer from './questionAdminSlice';
 import modalReducer from './modalSlice';
 import answersAdminReducer from './answerAdminSlice';
 import userAdminReducer from './userAdminSlice';
+import playReducer from './playSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         questionsAdmin: questionsAdminReducer,
         modal: modalReducer,
         answerAdmin: answersAdminReducer,
-        userAdmin: userAdminReducer
+        userAdmin: userAdminReducer,
+        play: playReducer
     }
 })
 

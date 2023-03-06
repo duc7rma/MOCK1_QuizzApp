@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { addQuestionsAdmin, deleteQuestionsAdmin, fetchAllQuestionsAdmin, getDetailsQuestionAdmin, updateQuestionsAdmin } from "services/questions-admin-service"
+import { addQuestionsAdmin, deleteQuestionsAdmin, fetchAllQuestionsAdmin, getDetailsQuestionAdmin, updateQuestionsAdmin, uploadThumbnailThunkAdmin } from "services/questions-admin-service"
 
 
 export const fetchAllQuestionsAdminThunk = createAsyncThunk('questions/fetchAllQuestions', async (params) => {
@@ -24,6 +24,11 @@ export const addQuestionThunk = createAsyncThunk('questions/addQuestion', async 
 
 export const getDetailsQuestionThunk = createAsyncThunk('questions/getDetailsQuestion', async (id) => {
     const res = await getDetailsQuestionAdmin(id)
+    return res.data
+})
+
+export const uploadThumbnailThunk = createAsyncThunk('questions/getDetailsQuestion', async (file) => {
+    const res = await uploadThumbnailThunkAdmin(file)
     return res.data
 })
 
