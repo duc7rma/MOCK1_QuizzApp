@@ -54,6 +54,9 @@ const questionsAdminSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload
         },
+        setPageSize: (state, action) => {
+            state.pageSize = action.payload
+        },
         setSortOrder: (state, action) => {
             state.order = action.payload
         },
@@ -65,8 +68,7 @@ const questionsAdminSlice = createSlice({
         },
         setCurrentQuestion: (state, action) => {
             state.currentQuestionDetail = action.payload
-        }
-
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -76,10 +78,8 @@ const questionsAdminSlice = createSlice({
             .addCase(fetchAllQuestionsAdminThunk.fulfilled, (state, action) => {
                 state.questions = action.payload.result;
                 state.total = action.payload.total
-                state.totalPages = action.payload.totalPages
                 state.currentPage = action.payload.currentPage
                 state.loading = false
-                state.isDeleteQuestion = false
             })
 
             .addCase(deleteQuestionThunk.pending, (state, action) => {
@@ -107,5 +107,5 @@ const questionsAdminSlice = createSlice({
 
 const { actions, reducer: questionsAdminReducer } = questionsAdminSlice;
 
-export const { setListQuestion, setCurrentPage, setSortOrder, setSortField, setKeyWords, setCurrentQuestion } = actions;
+export const { setListQuestion, setCurrentPage, setSortOrder, setSortField, setKeyWords, setCurrentQuestion, setPageSize } = actions;
 export default questionsAdminReducer;

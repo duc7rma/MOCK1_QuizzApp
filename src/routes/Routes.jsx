@@ -17,6 +17,7 @@ const GoToPlayPage = React.lazy(() => import('containers/answer/GoToPlayPage'));
 const Dashboard = React.lazy(() => import('containers/dashboard/Dashboard'));
 const User = React.lazy(() => import('containers/dashboard/users/User'));
 const PageNotFound = React.lazy(() => import('components/page-not-found/PageNotFound'));
+const ChangePassword = React.lazy(() => import('containers/change-password/ChangePassword'));
 
 const Routes = () => {
   const accessToken = localStorage.getItem(EAuthToken.ACCESS_TOKEN);
@@ -33,7 +34,7 @@ const Routes = () => {
 
         <Route element={<AuthLayout />}>
           {/* <Route path="/" element={<ProtectedRoute />}> */}
-          <Route index element={<HomePage />} />
+          {/* <Route index element={<HomePage />} /> */}
           <Route path={RoutePaths.HOME} element={<HomePage />}>
             <Route index element={<GoToPlayPage />} />
             <Route path={RoutePaths.GO_TO_PLAY} element={<GoToPlayPage />} />
@@ -43,6 +44,7 @@ const Routes = () => {
               <Route path={RoutePaths.USER} element={<User />} />
             </Route>
           </Route>
+          <Route path={RoutePaths.CHANGE_PASSWORD} element={<ChangePassword />} />
         </Route>
         {/* </Route> */}
 

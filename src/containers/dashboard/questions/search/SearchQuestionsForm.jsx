@@ -9,7 +9,6 @@ import './SearchQuestionsForm.scss';
 function SearchQuestionsForm() {
   const dispatch = useDispatch();
 
-  const pageSize = useSelector((state) => state.questionsAdmin.pageSize);
   const order = useSelector((state) => state.questionsAdmin.order);
   const sortField = useSelector((state) => state.questionsAdmin.sortField);
   const loading = useSelector((state) => state.questionsAdmin.status);
@@ -32,7 +31,7 @@ function SearchQuestionsForm() {
       order: order,
       sortField: sortField,
       page: 1,
-      size: pageSize,
+      // size: pageSize,
       keyWord: keywords,
     };
 

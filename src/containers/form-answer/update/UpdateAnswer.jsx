@@ -1,18 +1,17 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Button } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteAnswerAdmin } from 'services/answer-admin-service';
-import { deleteAnswer, setIsEditAnswer, updateAnswerThunk, setListAnswer } from 'stores/answerAdminSlice';
+import { deleteAnswer, setIsEditAnswer, toggleCheckBoxAnswer, updateAnswerThunk } from 'stores/answerAdminSlice';
 import UpdateTitle from './UpdateTitle';
-import { getDetailsQuestionAdmin } from 'services/questions-admin-service';
 
 function UpdateAnswer({ content, correct, answerId }) {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.answerAdmin.loadingDelete);
-  const currentQuestionId = useSelector((state) => state.modal.currentQuestionId);
   // const isEdit = useSelector((state) => state.answerAdmin.isEditAnswer);
 
   const [checked, setChecked] = useState(false);
@@ -27,7 +26,7 @@ function UpdateAnswer({ content, correct, answerId }) {
   const handleToggleCheckBox = async (e) => {
     setChecked(e.target.checked);
 
-    await dispatch(
+    const res = await dispatch(
       updateAnswerThunk({
         id: answerId,
         is_correct: e.target.checked,
@@ -35,8 +34,13 @@ function UpdateAnswer({ content, correct, answerId }) {
       }),
     );
 
-    const res = await getDetailsQuestionAdmin(currentQuestionId);
-    dispatch(setListAnswer(res.data.answers));
+    const rs = unwrapResult(res);
+    dispatch(
+      toggleCheckBoxAnswer({
+        id: rs.id,
+        is_correct: rs.is_correct,
+      }),
+    );
   };
 
   return (
@@ -62,9 +66,7 @@ function UpdateAnswer({ content, correct, answerId }) {
       />
       <FormControlLabel
         label={content}
-        control={
-          <Checkbox name="rememberMe" color="primary" defaultChecked={correct} onChange={handleToggleCheckBox} />
-        }
+        control={<Checkbox name="rememberMe" color="primary" checked={correct} onChange={handleToggleCheckBox} />}
       />
 
       {isEdit && <UpdateTitle answerId={answerId} checked={checked} setIsEdit={setIsEdit} content={content} />}

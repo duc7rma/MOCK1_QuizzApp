@@ -12,6 +12,8 @@ const modalSlice = createSlice({
         isShowUpdateUser: false,
         isShowAddUser: false,
         currentUserId: undefined,
+
+        isShowChangePassword: false
     },
     reducers: {
         // show modal delete both question and user

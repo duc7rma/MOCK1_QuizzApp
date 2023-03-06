@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const tabSlice = createSlice({
     name: 'tab',
-    initialState: 0,
+    initialState: 'go-to-play',
     reducers: {
         changeTab(state, action) {
+            console.log(action.payload)
             return action.payload;
         },
 

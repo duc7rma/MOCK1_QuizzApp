@@ -41,6 +41,14 @@ const answersAdminSlice = createSlice({
         },
         setIsEditAnswer: (state, action) => {
             state.isEditAnswer = action.payload
+        },
+        updateTitleAnswer: (state, action) => {
+            const index = state.answers.findIndex(answer => answer.id === action.payload.id)
+            state.answers[index].content = action.payload.content
+        },
+        toggleCheckBoxAnswer: (state, action) => {
+            const index = state.answers.findIndex(answer => answer.id === action.payload.id)
+            state.answers[index].is_correct = action.payload.is_correct
         }
     },
     extraReducers: (builder) => {
@@ -70,5 +78,5 @@ const answersAdminSlice = createSlice({
 
 const { actions, reducer: answersAdminReducer } = answersAdminSlice;
 
-export const { setListAnswer, addAnswer, deleteAnswer, setIsEditAnswer } = actions;
+export const { setListAnswer, addAnswer, deleteAnswer, setIsEditAnswer, updateTitleAnswer, toggleCheckBoxAnswer } = actions;
 export default answersAdminReducer;

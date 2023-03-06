@@ -37,7 +37,7 @@ function SearchUserForm() {
       order: order,
       sortField: sortField,
       page: 1,
-      size: pageSize,
+      // size: pageSize,
       keyWord: keywords,
     };
     if (role !== '') {

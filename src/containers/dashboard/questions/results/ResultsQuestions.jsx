@@ -1,14 +1,14 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Image, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setCurrentQuestionId, showHideModal, showHideModalUpdateQuestion } from 'stores/modalSlice';
-import { fetchAllQuestionsAdminThunk } from 'stores/questionAdminSlice';
-import ModalDelete from 'components/modal/modal-delete/ModalDeletes';
-import { TYPE_CATEGORY } from 'constants/modal';
-import ModalUpdateQuestion from 'components/modal/modal-update/ModalUpdateQuestion';
 import ModalAddQuestion from 'components/modal/modal-add/ModalAddQuestion';
+import ModalDelete from 'components/modal/modal-delete/ModalDeletes';
+import ModalUpdateQuestion from 'components/modal/modal-update/ModalUpdateQuestion';
+import { TYPE_CATEGORY } from 'constants/modal';
+import { setCurrentQuestionId, showHideModal, showHideModalUpdateQuestion } from 'stores/modalSlice';
+import { fetchAllQuestionsAdminThunk, setCurrentPage, setPageSize } from 'stores/questionAdminSlice';
 
 const moment = require('moment');
 const defaultThumbnail = 'https://res.cloudinary.com/qn052289/image/upload/v1664685443/gsriwi4r6ndzq5f5d1rz.webp';
@@ -18,6 +18,11 @@ const ResultsQuestions = () => {
   const [dataQuestions, setDataQuestions] = useState([]);
 
   const allQuestion = useSelector((state) => state.questionsAdmin.questions);
+
+  const handleChangePagination = (page, size) => {
+    dispatch(setCurrentPage(page));
+    dispatch(setPageSize(size));
+  };
 
   const columns = [
     {
@@ -114,7 +119,16 @@ const ResultsQuestions = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={dataQuestions} />
+      <Table
+        columns={columns}
+        dataSource={dataQuestions}
+        pagination={{
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ['2', '5', '10'],
+          onChange: handleChangePagination,
+        }}
+      />
       <ModalDelete type={TYPE_CATEGORY.QUESTION} />
       <ModalUpdateQuestion />
       <ModalAddQuestion />

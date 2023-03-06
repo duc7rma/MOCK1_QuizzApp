@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import { Formik } from 'formik';
@@ -15,9 +16,14 @@ const validationSchema = yup.object({
 
 function ForgotPasswordPage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleOnSubmit = async (values) => {
+    setLoading(true);
     await forgotPassword(values);
+
+    setLoading(false);
+    navigate(RoutePaths.SIGN_IN);
   };
 
   return (
@@ -46,7 +52,7 @@ function ForgotPasswordPage() {
                 fullWidth
                 type="submit"
                 style={{ marginTop: '10px', marginBottom: '10px', width: '100px' }}
-                //   loading={loading}
+                loading={loading}
               >
                 Submit
               </LoadingButton>

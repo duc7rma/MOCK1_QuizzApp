@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RoutePaths } from 'routes/route-constants';
 import { signUp } from 'services/auth-service';
-import { signUpSchema } from 'utils/yup/sign-up';
+import { signUpSchema } from 'utils/yup';
 import './SignUpPage.scss';
 
 function SignUpPage() {

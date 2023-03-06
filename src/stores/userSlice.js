@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { getMyProfile, signIn } from 'services/auth-service';
+import { changePassword, getMyProfile, signIn } from 'services/auth-service';
 
 export const signInThunk = createAsyncThunk('sign-in', async (payload) => {
     const res = await signIn(payload)
@@ -13,13 +13,18 @@ export const getMyProfileThunk = createAsyncThunk('my-profile', async () => {
     return res.data
 })
 
+export const changePasswordThunk = createAsyncThunk('change-password', async (payload) => {
+    const res = await changePassword(payload)
+    return res.data
+})
+
 
 const userSlice = createSlice({
     name: 'user',
     initialState: {
         user: {},
         hasAuth: false,
-        loading: false
+        loading: false,
     },
     reducers: {
         addUser(state, action) {
@@ -47,14 +52,24 @@ const userSlice = createSlice({
             })
 
             .addCase(getMyProfileThunk.pending, (state) => {
-                // state.loading = true
+                state.loading = true
             })
             .addCase(getMyProfileThunk.rejected, (state) => {
-                // state.loading = false
+                state.loading = false
             })
             .addCase(getMyProfileThunk.fulfilled, (state, action) => {
                 state.user = action.payload;
-                state.hasAuth = true;
+                state.hasAuth = false;
+            })
+
+            .addCase(changePasswordThunk.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(changePasswordThunk.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(changePasswordThunk.fulfilled, (state, action) => {
+                state.hasAuth = false;
             })
     }
 })

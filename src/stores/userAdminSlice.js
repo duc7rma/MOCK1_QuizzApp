@@ -57,6 +57,9 @@ const userAdminSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload
         },
+        setPageSize: (state, action) => {
+            state.pageSize = action.payload
+        },
         setSortOrder: (state, action) => {
             state.order = action.payload
         },
@@ -82,7 +85,6 @@ const userAdminSlice = createSlice({
             .addCase(fetchAllUsersAdminThunk.fulfilled, (state, action) => {
                 state.users = action.payload.result;
                 state.total = action.payload.total
-                state.totalPages = action.payload.totalPages
                 state.currentPage = action.payload.currentPage
                 state.loading = false
             })
@@ -112,5 +114,5 @@ const userAdminSlice = createSlice({
 
 const { actions, reducer: userAdminReducer } = userAdminSlice;
 
-export const { setListUsers, setCurrentPage, setSortOrder, setSortField, setKeyWords, setCurrentUser, setRole } = actions;
+export const { setListUsers, setCurrentPage, setSortOrder, setSortField, setKeyWords, setCurrentUser, setRole, setPageSize } = actions;
 export default userAdminReducer;

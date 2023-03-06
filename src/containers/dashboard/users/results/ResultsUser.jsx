@@ -8,7 +8,7 @@ import ModalDelete from 'components/modal/modal-delete/ModalDeletes';
 import ModalUpdateUser from 'components/modal/modal-update/ModalUpdateUser';
 import { TYPE_CATEGORY } from 'constants/modal';
 import { setCurrentUserId, showHideModal, showHideModalUpdateUser } from 'stores/modalSlice';
-import { fetchAllUsersAdminThunk } from 'stores/userAdminSlice';
+import { fetchAllUsersAdminThunk, setCurrentPage, setPageSize } from 'stores/userAdminSlice';
 
 const moment = require('moment');
 const defaultAvatar = 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png';
@@ -18,6 +18,11 @@ const ResultsUser = () => {
   const [listUsers, setListUsers] = useState([]);
 
   const allUsers = useSelector((state) => state.userAdmin.users);
+
+  const handleChangePagination = (page, size) => {
+    dispatch(setCurrentPage(page));
+    dispatch(setPageSize(size));
+  };
 
   const columns = [
     {
@@ -141,7 +146,16 @@ const ResultsUser = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={listUsers} />
+      <Table
+        columns={columns}
+        dataSource={listUsers}
+        pagination={{
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ['2', '5', '10'],
+          onChange: handleChangePagination,
+        }}
+      />
       <ModalDelete type={TYPE_CATEGORY.USER} />
       <ModalUpdateUser />
       <ModalAddUser />

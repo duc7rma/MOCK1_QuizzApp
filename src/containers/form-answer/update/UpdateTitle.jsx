@@ -2,18 +2,17 @@ import { Button, Input } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getDetailsQuestionAdmin } from 'services/questions-admin-service';
-import { setIsEditAnswer, setListAnswer, updateAnswerThunk } from 'stores/answerAdminSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { setIsEditAnswer, updateAnswerThunk, updateTitleAnswer } from 'stores/answerAdminSlice';
 
 function UpdateTitle({ checked, setIsEdit, content, answerId }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(content);
 
   const loading = useSelector((state) => state.answerAdmin.loadingUpdate);
-  const currentQuestionId = useSelector((state) => state.modal.currentQuestionId);
 
   const handleSaveTitle = async () => {
-    await dispatch(
+    const res = await dispatch(
       updateAnswerThunk({
         id: answerId,
         is_correct: checked,
@@ -21,8 +20,13 @@ function UpdateTitle({ checked, setIsEdit, content, answerId }) {
       }),
     );
 
-    const res = await getDetailsQuestionAdmin(currentQuestionId);
-    dispatch(setListAnswer(res.data.answers));
+    const rs = unwrapResult(res);
+    dispatch(
+      updateTitleAnswer({
+        id: rs.id,
+        content: rs.content,
+      }),
+    );
 
     setIsEdit(false);
   };

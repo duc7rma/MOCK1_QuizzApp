@@ -2,10 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import { RoutePaths } from 'routes/route-constants';
+import { useDispatch } from 'react-redux';
+import { TAB_HEADER } from 'constants/tabs';
+import { changeTab } from 'stores/tabSlice';
 import './Tabs.scss';
 
 function TabsHeader() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [tabACtive, setTabActive] = useState('play');
 
   return (
@@ -13,6 +17,7 @@ function TabsHeader() {
       <span
         className={`tab play ${tabACtive === 'play' ? 'active' : ''} `}
         onClick={() => {
+          dispatch(changeTab(TAB_HEADER.GO_TO_PLAY));
           setTabActive('play');
           navigate(RoutePaths.GO_TO_PLAY);
         }}
@@ -22,6 +27,7 @@ function TabsHeader() {
       <span
         className={`tab dashboard ${tabACtive === 'dashboard' ? 'active' : ''} `}
         onClick={() => {
+          dispatch(changeTab(TAB_HEADER.ADMIN));
           setTabActive('dashboard');
           navigate(RoutePaths.DASHBOARD);
         }}

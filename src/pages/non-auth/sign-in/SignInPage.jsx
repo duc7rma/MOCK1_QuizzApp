@@ -1,15 +1,15 @@
+import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Formik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { RoutePaths } from 'routes/route-constants';
 import { signInThunk } from 'stores/userSlice';
 import { handleStorageToken } from 'utils/storage-utils';
+import { signInSchema } from 'utils/yup';
 import './SignInPage.scss';
-import { signInSchema } from 'utils/yup/sign-in';
 
 function SignInPage() {
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ function SignInPage() {
               style={{ marginTop: '10px', marginBottom: '10px', width: '100px' }}
               loading={isSubmitting}
             >
-              Sign Up
+              Sign In
             </LoadingButton>
           </form>
         )}

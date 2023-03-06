@@ -65,7 +65,7 @@ const ModalUpdateUser = () => {
         email: email,
         name: name,
         avatar_link: avatar,
-        roles: roles,
+        roles: roles.length > 0 ? roles : ['user'],
       }),
     );
 
@@ -99,6 +99,14 @@ const ModalUpdateUser = () => {
       open={isOpen}
       onOk={handleOk}
       onCancel={handleCancel}
+      footer={[
+        <Button key="button" type="default" onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button disabled={!Boolean(roles.length)} key="submit" type="primary" onClick={handleOk}>
+          Ok
+        </Button>,
+      ]}
     >
       <TextField disabled id="outlined-basic" label="Email" variant="filled" fullWidth value={email} />
 

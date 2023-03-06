@@ -1,5 +1,5 @@
 import { showToast, toastType } from 'components/toast/toast';
-import { API_FORGOT_PASSWORD_URL, API_GET_MY_PROFILE_URL, API_LOGOUT_URL, API_REGISTER_URL, API_SIGNIN_URL } from "constants/api-constant";
+import { API_CHANGE_PASSWORD_URL, API_FORGOT_PASSWORD_URL, API_GET_MY_PROFILE_URL, API_LOGOUT_URL, API_REGISTER_URL, API_SIGNIN_URL } from "constants/api-constant";
 import { removeItem } from "utils/storage-utils";
 import { EAuthToken } from "variables";
 import { ApiClient } from "./api-client";
@@ -62,6 +62,18 @@ export const forgotPassword = async (payload) => {
 export const getMyProfile = async () => {
     try {
         const res = await ApiClient.get(API_GET_MY_PROFILE_URL);
+        showToast(res.data.message, toastType.success)
+
+        return res.data;
+    }
+    catch (err) {
+        showToast(err.message, toastType.error)
+    }
+};
+
+export const changePassword = async (payload) => {
+    try {
+        const res = await ApiClient.patch(API_CHANGE_PASSWORD_URL, payload);
         showToast(res.data.message, toastType.success)
 
         return res.data;

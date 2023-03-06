@@ -46,14 +46,17 @@ function ModalAddQuestion() {
   };
 
   const handleOk = async () => {
-    dispatch(showHideModalAddQuestion(false));
-
     await addQuestionsAdmin({
       title: title,
       thumbnail_link: thumbnail,
     });
 
-    dispatch(fetchAllQuestionsAdminThunk({}));
+    setTitle('');
+
+    if (Boolean(title)) {
+      dispatch(showHideModalAddQuestion(false));
+      dispatch(fetchAllQuestionsAdminThunk({}));
+    }
   };
 
   const handleCancel = () => {

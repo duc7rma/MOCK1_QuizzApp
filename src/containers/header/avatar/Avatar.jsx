@@ -1,10 +1,13 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PasswordIcon from '@mui/icons-material/Password';
 
 import { RoutePaths } from 'routes/route-constants';
 import { logOut } from 'services/auth-service';
@@ -55,7 +58,17 @@ export default function MyAvatar() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate(RoutePaths.CHANGE_PASSWORD);
+            handleClose();
+          }}
+        >
+          <PasswordIcon /> &nbsp; Change Password
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <LogoutIcon /> &nbsp; Logout
+        </MenuItem>
       </Menu>
     </div>
   );
