@@ -14,7 +14,6 @@ import { RoutePaths } from 'routes/route-constants';
 import { logOut } from 'services/auth-service';
 import { EAuthToken } from 'variables';
 import { removeItem } from 'utils/storage-utils';
-import { EAuthToken } from 'variables';
 
 export default function MyAvatar() {
   const navigate = useNavigate();
