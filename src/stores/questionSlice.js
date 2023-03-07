@@ -9,7 +9,8 @@ const initState = {
     total: 0,
     loadingSubmit: false,
     questionsSubmitted: [],
-    totalScore: 0
+    totalScore: 0,
+    isSubmitted: false
 }
 
 export const fetchListQuestionsThunk = createAsyncThunk('question/fetchListQuestions', async (total) => {
@@ -33,11 +34,8 @@ const questionSlice = createSlice({
         setIndex: (state, action) => {
             state.index = action.payload
         },
-        resetQuestions: (state, action) => {
-            state.questions = []
-            state.status = false
-            state.index = 1
-            state.total = 0
+        resetQuestions: (state) => {
+            return initState
         },
         setAnswers: (state, action) => {
             state.questions = state.questions.map(question => {
@@ -48,6 +46,9 @@ const questionSlice = createSlice({
                 }
             })
         },
+        setIsSubmitted: (state, action) => {
+            state.isSubmitted = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -62,9 +63,14 @@ const questionSlice = createSlice({
 
             .addCase(submitQuestionsThunk.pending, (state) => {
                 state.loadingSubmit = true
+                state.isSubmitted = false
+            })
+            .addCase(submitQuestionsThunk.rejected, (state) => {
+                state.loadingSubmit = true
+                state.isSubmitted = false
             })
             .addCase(submitQuestionsThunk.fulfilled, (state, action) => {
-                console.log(action.payload)
+                state.isSubmitted = true
                 state.loadingSubmit = false
                 state.questionsSubmitted = action.payload.listQuestionChecked
                 state.totalScore = action.payload.totalScore
@@ -74,5 +80,5 @@ const questionSlice = createSlice({
 
 const { actions, reducer: questionsReducer } = questionSlice;
 
-export const { setListQuestion, setIndex, resetQuestions, setAnswers } = actions;
+export const { setListQuestion, setIndex, resetQuestions, setAnswers, setIsSubmitted } = actions;
 export default questionsReducer;

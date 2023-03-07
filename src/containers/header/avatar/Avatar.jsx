@@ -8,11 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PasswordIcon from '@mui/icons-material/Password';
+import { useSelector } from 'react-redux';
 
 import { RoutePaths } from 'routes/route-constants';
 import { logOut } from 'services/auth-service';
 import { EAuthToken } from 'variables';
-import { useSelector } from 'react-redux';
+import { removeItem } from 'utils/storage-utils';
+import { EAuthToken } from 'variables';
 
 export default function MyAvatar() {
   const navigate = useNavigate();
@@ -32,6 +34,9 @@ export default function MyAvatar() {
   const handleLogout = async () => {
     const refresh_token = localStorage.getItem(EAuthToken.REFRESH_TOKEN);
     await logOut({ refresh_token });
+
+    removeItem(EAuthToken.REFRESH_TOKEN);
+    removeItem(EAuthToken.ACCESS_TOKEN);
 
     navigate(RoutePaths.SIGN_IN, { replace: true });
   };

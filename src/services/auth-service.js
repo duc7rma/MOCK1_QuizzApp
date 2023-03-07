@@ -1,7 +1,6 @@
 import { showToast, toastType } from 'components/toast/toast';
 import { API_CHANGE_PASSWORD_URL, API_FORGOT_PASSWORD_URL, API_GET_MY_PROFILE_URL, API_LOGOUT_URL, API_REGISTER_URL, API_SIGNIN_URL } from "constants/api-constant";
-import { removeItem } from "utils/storage-utils";
-import { EAuthToken } from "variables";
+
 import { ApiClient } from "./api-client";
 
 export const signIn = async (payload) => {
@@ -33,12 +32,8 @@ export const signUp = async (payload) => {
 export const logOut = async (payload) => {
     try {
         const res = await ApiClient.post(API_LOGOUT_URL, payload);
-        if (res.data.statusCode === 200) {
-            removeItem(EAuthToken.REFRESH_TOKEN);
-            removeItem(EAuthToken.ACCESS_TOKEN);
 
-            showToast(res.data.message, toastType.success)
-        }
+        showToast(res.data.message, toastType.success)
         return res.data;
     }
     catch (err) {

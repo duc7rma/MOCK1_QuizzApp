@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { showHideModalSubmitQuestion } from 'stores/modalSlice';
-import { submitQuestionsThunk } from 'stores/questionSlice';
+import { submitQuestionsThunk, setIndex } from 'stores/questionSlice';
 
 function ModalSubmitQuestion() {
   const dispatch = useDispatch();
@@ -20,6 +20,8 @@ function ModalSubmitQuestion() {
       listQuestionSubmitted: [...questionsSubmit],
     };
     dispatch(submitQuestionsThunk(payload));
+
+    dispatch(setIndex(1));
     dispatch(showHideModalSubmitQuestion(false));
   };
 

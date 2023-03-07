@@ -1,8 +1,6 @@
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { Image } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,14 +10,7 @@ import { showHideModalSubmitQuestion } from 'stores/modalSlice';
 import { setAnswers } from 'stores/questionSlice';
 import ModalSubmitQuestion from 'components/modal/modal-submit-question/ModalSubmitQuestion';
 import './FormQuestion.scss';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import { Item } from 'components/item/Item';
 
 function FormQuestion({ title, answers, thumbnail }) {
   const dispatch = useDispatch();

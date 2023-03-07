@@ -1,0 +1,17 @@
+.form-question {
+  width: 50%;
+  margin: 30px auto;
+
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06);
+
+  &_title {
+    text-align: left !important;
+    color: goldenrod;
+  }
+
+  .ant-image.css-dev-only-do-not-override-k83k30 {
+    margin: 20px 0;
+  }
+}

@@ -32,8 +32,6 @@ const Routes = () => {
         </Route>
 
         <Route element={<AuthLayout />}>
-          {/* <Route path="/" element={<ProtectedRoute />}> */}
-          {/* <Route index element={<HomePage />} /> */}
           <Route path={RoutePaths.HOME} element={<HomePage />}>
             <Route index element={<GoToPlayPage />} />
             <Route path={RoutePaths.GO_TO_PLAY} element={<GoToPlayPage />} />
@@ -45,7 +43,6 @@ const Routes = () => {
           </Route>
           <Route path={RoutePaths.CHANGE_PASSWORD} element={<ChangePassword />} />
         </Route>
-        {/* </Route> */}
 
         <Route path="*" element={<PageNotFound />} />
       </ReactRoutes>

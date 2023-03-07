@@ -7,6 +7,7 @@ export const RoutePaths = {
     // Auth
     HOME: '/',
     GO_TO_PLAY: '/go-to-play',
+    RESULTS: '/go-to-play/results',
     CHANGE_PASSWORD: '/change-password',
 
     // dashboard
