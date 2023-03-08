@@ -31,7 +31,6 @@ function SearchQuestionsForm() {
       order: order,
       sortField: sortField,
       page: 1,
-      // size: pageSize,
       keyWord: keywords,
     };
 

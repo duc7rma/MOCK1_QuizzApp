@@ -25,6 +25,7 @@ function AddAnswer() {
     dispatch(addAnswer(res?.data));
 
     setAnswer('');
+    setChecked(false);
 
     return res.data;
   };
@@ -32,6 +33,7 @@ function AddAnswer() {
   return (
     <div>
       <Button
+        disabled={!!!answer}
         type="primary"
         icon={<PlusOutlined />}
         size="small"
@@ -41,7 +43,13 @@ function AddAnswer() {
       />
       <FormControlLabel
         control={
-          <Checkbox name="rememberMe" color="primary" value={checked} onChange={(e) => setChecked(e.target.checked)} />
+          <Checkbox
+            name="rememberMe"
+            color="primary"
+            value={checked}
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+          />
         }
         style={{ marginRight: 0 }}
       />

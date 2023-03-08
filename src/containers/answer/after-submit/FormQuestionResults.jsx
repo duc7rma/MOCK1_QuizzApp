@@ -14,7 +14,7 @@ function FormQuestionSubmitted({ title, answers, thumbnail }) {
         <Image width="50vw" src={thumbnail ? thumbnail : imageQuestionDefault} />
         <Grid container spacing={4}>
           {answers.map((answer) => {
-            let color = answer.is_correct ? 'greenyellow' : 'aqua';
+            let color = answer.is_correct ? 'greenyellow' : 'fff';
             if (answer.is_submit_correct === false) color = 'red';
             return (
               <Grid key={answer.id} item xs={6}>

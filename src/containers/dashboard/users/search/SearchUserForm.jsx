@@ -9,7 +9,6 @@ import './SearchUserForm.scss';
 function SearchUserForm() {
   const dispatch = useDispatch();
 
-  const pageSize = useSelector((state) => state.userAdmin.pageSize);
   const order = useSelector((state) => state.userAdmin.order);
   const sortField = useSelector((state) => state.userAdmin.sortField);
   const loading = useSelector((state) => state.userAdmin.status);
@@ -37,7 +36,6 @@ function SearchUserForm() {
       order: order,
       sortField: sortField,
       page: 1,
-      // size: pageSize,
       keyWord: keywords,
     };
     if (role !== '') {

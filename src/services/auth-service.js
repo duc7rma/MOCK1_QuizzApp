@@ -13,7 +13,6 @@ export const signIn = async (payload) => {
     catch (err) {
         showToast(err.message, toastType.error)
     }
-
 };
 
 export const signUp = async (payload) => {
@@ -26,7 +25,6 @@ export const signUp = async (payload) => {
     catch (err) {
         showToast(err.message, toastType.error)
     }
-
 };
 
 export const logOut = async (payload) => {

@@ -123,7 +123,7 @@ const ResultsQuestions = () => {
         columns={columns}
         dataSource={dataQuestions}
         pagination={{
-          defaultPageSize: 5,
+          defaultPageSize: 2,
           showSizeChanger: true,
           pageSizeOptions: ['2', '5', '10'],
           onChange: handleChangePagination,

@@ -20,6 +20,7 @@ const ResultsUser = () => {
   const allUsers = useSelector((state) => state.userAdmin.users);
 
   const handleChangePagination = (page, size) => {
+    // setPageSize(size);
     dispatch(setCurrentPage(page));
     dispatch(setPageSize(size));
   };
@@ -128,10 +129,10 @@ const ResultsUser = () => {
 
   useEffect(() => {
     if (allUsers) {
-      const newAllUsers = allUsers.map((question) => {
+      const newAllUsers = allUsers.map((user) => {
         return {
-          ...question,
-          key: question.id,
+          ...user,
+          key: user.id,
         };
       });
 
@@ -150,9 +151,10 @@ const ResultsUser = () => {
         columns={columns}
         dataSource={listUsers}
         pagination={{
-          defaultPageSize: 5,
+          defaultPageSize: 2,
           showSizeChanger: true,
           pageSizeOptions: ['2', '5', '10'],
+          total: listUsers.length,
           onChange: handleChangePagination,
         }}
       />

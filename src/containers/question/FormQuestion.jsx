@@ -58,7 +58,7 @@ function FormQuestion({ title, answers, thumbnail }) {
         <Image width="50vw" src={thumbnail ? thumbnail : imageQuestionDefault} />
         <Grid container spacing={4}>
           {answers.map((answer) => {
-            const color = questionSubmit.answersSubmittedId?.includes(answer.id) ? '#bdbdbd70' : 'aqua';
+            const color = questionSubmit.answersSubmittedId?.includes(answer.id) ? 'aqua' : '#fff';
             return (
               <Grid key={answer.id} item xs={6}>
                 <Item

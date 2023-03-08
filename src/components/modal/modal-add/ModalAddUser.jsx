@@ -15,7 +15,7 @@ function ModalAddUser() {
   const dispatch = useDispatch();
   const formRef = useRef();
 
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState(['user']);
   const [rolesValues, setRolesValues] = useState();
 
   const isOpen = useSelector((state) => state.modal.isShowAddUser);
